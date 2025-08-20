@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", function(){
+    const usuario = localStorage.getItem("usuarioLogueado");
+    
+    if (!usuario) {
+        // Si no hay usuario logueado, redirigir a login
+        window.location.href = "login.html";
+    }
+
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
         window.location = "products.html"
@@ -12,3 +19,4 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
+
