@@ -1,10 +1,12 @@
-// Funcionalidad para mostrar/ocultar contraseña
-const password = document.getElementById("password");
-const toggleBtn = document.getElementById("toggle-password");
-const showEye = document.getElementById("showing-password");
-const hideEye = document.getElementById("hiding-password");
+const toggleBtn = document.querySelector(".toggle-password");
 
+
+// Funcionalidad para mostrar/ocultar contraseña
 toggleBtn.addEventListener("click", () => {
+    const password = document.getElementById("password");
+    const showEye = document.querySelector(".showing-icon");
+    const hideEye = document.querySelector(".hiding-icon");
+
     if (password.type === "password") {
         // Mostrar contraseña
         password.type = "text";
@@ -30,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (usuario.trim() !== "" && contrasena.trim() !== "") {
             localStorage.setItem("usuarioLogueado", usuario);
             window.location.href = "index.html"; // redirección
-
         } else {
             alert("Debes ingresar usuario y contraseña.");
         }
