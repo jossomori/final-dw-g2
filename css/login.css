@@ -21,20 +21,20 @@ body {
     flex-direction: column;
 }
 
-/* ########## FORM COLUMN (para todos los dispositivos) ########## */
+/* ########## FORM COLUMN ########## */
 .form-column {
     display: flex;
     flex-direction: column;
-    flex: 1; /* Ocupa todo el espacio disponible */
-    justify-content: space-between; /* Distribuye espacio entre form y footer */
+    flex: 1;
+    justify-content: space-between;
 }
 
 /* ########## MAIN CONTENT ########## */
 .main-content {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centra verticalmente */
-    flex: 1; /* Ocupa espacio disponible */
+    justify-content: center;
+    flex: 1;
     padding: var(--spacing-lg);
 }
 
@@ -75,7 +75,7 @@ header {
     background-color: var(--form-bg-color);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow);
-    width: 100%; /* Asegura que no exceda el ancho disponible */
+    width: 100%;
 }
 
 .login-title {
