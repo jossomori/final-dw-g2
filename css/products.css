@@ -202,6 +202,12 @@ h1 {
     box-shadow: 0 0 1rem var(--primary-color);
 }
 
+.no-products {
+    font-size: var(--font-size-lg);
+    text-align: center;
+    margin: auto 0;
+}
+
 /* ############## PRODUCT CARD ############## */
 .product-card {
     background-color: #fff;
