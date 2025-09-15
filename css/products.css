@@ -48,6 +48,7 @@ h1 {
     gap: var(--spacing-lg);
 }
 
+
 /* ############## FILTER SECTION ############## */
 .filter-section {
     margin-bottom: var(--spacing-lg);
@@ -238,6 +239,7 @@ h1 {
     box-shadow: 0 0 1rem var(--primary-color);
 }
 
+
 /* ############## MEDIA QUERIES ############## */
 @media (max-width: 900px) {
     .layout {
@@ -292,29 +294,10 @@ h1 {
         text-align: center;
     }
 
-    .header-container {
-        flex-wrap: wrap;
-    }
-    
-    .search-section {
-        order: 3;
-        max-width: 100%;
-        flex: 0 0 100%;
-        margin-top: var(--spacing-sm);
-        display: none;
-    }
     
     .products-filters {
         flex-direction: column;
         gap: 0;
-    }
-
-    .account-button {
-        display: none;
-    }
-
-    .cart-button {
-        display: none;
     }
 }
 
@@ -343,17 +326,6 @@ h1 {
     .product-price {
         font-size: var(--font-size-lg);
     }
-
-    footer {
-        padding: var(--spacing-xl);
-    }
-
-    .footer-container {
-        text-align: center;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--spacing-md);
-    }
 }
 
 @media (max-width: 320px) {
@@ -362,14 +334,6 @@ h1 {
         --font-size-base: 0.75rem;
         --font-size-lg: 1rem;
         --font-size-xl: 1.5rem;
-    }
-
-    .logo {
-        max-width: 70%;
-    }
-
-    .menu-icon {
-        width: 1.5rem;
     }
 
     .product-info {
