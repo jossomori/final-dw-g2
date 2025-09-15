@@ -82,6 +82,12 @@ function displayProducts(products) {
             </div>
         `;
 
+        // Esto es para que al hacer click en la tarjeta te lleve a product-info.html
+        item.addEventListener("click", function() {
+            localStorage.setItem("productID", prod.id);
+            window.location.href = "product-info.html";
+        });
+
         contenedor.appendChild(item);
     });
 }

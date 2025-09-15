@@ -11,13 +11,66 @@
     <link href="css/base.css" rel="stylesheet">
     <link href="css/components.css" rel="stylesheet">
     <link href="css/product-info.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
 </head>
-<body>    
-    <main></main>
+<body> 
+   <nav aria-label="breadcrumb" class="bg-white border-bottom mb-4">
+    <div class="container py-2">
+      <ol class="breadcrumb mb-0" id="breadcrumb-product">
+        <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="#" id="breadcrumb-category">Autos</a></li>
+        <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-product-name">Producto</li>
+      </ol>
+    </div>
+    </nav>   
+
+    <main>
+      <div class="container py-4">
+        <div class="row g-5 align-items-start">
+          <!-- Galería principal y miniaturas -->
+          <div class="col-lg-7">
+            <div class="product-gallery mb-3">
+              <img id="main-product-image" class="img-fluid rounded" src="" alt="Imagen principal producto">
+            </div>
+            <div class="product-thumbnails d-flex gap-3" id="product-thumbnails">
+              <!-- Miniaturas dinámicas -->
+            </div>
+          </div>
+          <!-- Info lateral -->
+          <div class="col-lg-5">
+            <div class="product-info-panel">
+              <div class="mb-2 text-muted" id="product-sold-count">0 vendidos</div>
+              <h2 class="mb-3 fw-bold" id="product-name">Nombre del producto</h2>
+              <div class="mb-3" id="product-description">Descripción del producto.</div>
+              <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="fs-3 fw-semibold mb-0" id="product-price">USD 0</div>
+                <button class="btn btn-warning btn-lg d-flex align-items-center gap-2" id="add-to-cart-btn">
+                  <i class="fa fa-shopping-cart"></i> Añadir al carrito
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Productos similares -->
+        <div class="row mt-5">
+          <div class="col-12">
+            <h3 class="mb-4">Productos similares</h3>
+            <div class="row" id="similar-products">
+              <!-- Similares dinámicos -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <script src="js/components.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/init.js"></script>
     <script src="js/product-info.js"></script>
+  
+    <div id="spinner-wrapper" style="display: none;">
+  <div class="spinner-border text-warning" role="status"></div>
+</div>
 </body>
 </html>
