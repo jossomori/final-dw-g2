@@ -1,4 +1,5 @@
-const URL = "https://japceibal.github.io/emercado-api/cats_products/101.json";
+const catID = localStorage.getItem("catID");
+const URL = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
 let productsData = [];
 let filteredProducts = [];
 
@@ -11,6 +12,9 @@ function loadProducts() {
     fetch(URL)
         .then(response => response.json())
         .then(data => {
+            document.title = data.catName;
+            document.getElementById("category-title").textContent = data.catName;
+            
             productsData = data.products;
             filteredProducts = [...productsData];
 
@@ -81,6 +85,10 @@ function displayProducts(products) {
                 </div>
             </div>
         `;
+        item.addEventListener("click", () => {
+            localStorage.setItem("productID", prod.id); 
+            window.location = "product-info.html";       
+        });
 
         contenedor.appendChild(item);
     });
