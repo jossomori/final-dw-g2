@@ -37,6 +37,14 @@ function setupEventListeners() {
     document.getElementById("max-price").addEventListener("keypress", function(e) {
         if (e.key === "Enter") filterByPrice();
     });
+
+    // Filtrar en tiempo real por texto
+    const searchInput = document.querySelector(".search-input");
+    if (searchInput) {
+        searchInput.addEventListener("input", function() {
+            applyFilters();
+        });
+    }
 }
 
 function displayProducts(products) {
@@ -123,19 +131,23 @@ function sortProductsByDefault() {
     filteredProducts.sort((a, b) => a.cost - b.cost);
     document.getElementById("sort-options").value = "asc";
 }
-
-function filterByPrice() {
+//  Nueva función de filtros combinados (precio + buscador)
+function applyFilters() {
     const minPrice = parseFloat(document.getElementById("min-price").value) || 0;
     const maxPrice = parseFloat(document.getElementById("max-price").value) || Number.MAX_SAFE_INTEGER;
-    
-    if (minPrice > maxPrice) {
-        alert("El precio mínimo no puede ser mayor al precio máximo");
-        return;
-    }
-    
+    const searchText = document.querySelector(".search-input").value.toLowerCase();
+
     filteredProducts = productsData.filter(product => {
-        return product.cost >= minPrice && product.cost <= maxPrice;
+        const matchesPrice = product.cost >= minPrice && product.cost <= maxPrice;
+        const matchesSearch = 
+            product.name.toLowerCase().includes(searchText) ||
+            product.description.toLowerCase().includes(searchText);
+        return matchesPrice && matchesSearch;
     });
-    
+
     sortProducts();
+}
+// Reemplazamos filterByPrice para que use applyFilters
+function filterByPrice() {
+    applyFilters();
 }
