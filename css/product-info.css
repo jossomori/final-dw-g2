@@ -181,3 +181,27 @@ main {
 	font-size: 1.05rem;
 	color: #222;
 }
+.rating-form .stars {
+  direction: rtl;              /* ordena de derecha a izquierda */
+  display: inline-flex;        /* las pone en fila */
+}
+
+.rating-form .stars input {
+  display: none;               /* oculta los radios (círculos por defecto) */
+}
+
+.rating-form .stars label {
+  font-size: 2rem;             /* tamaño grande de estrella */
+  color: #ccc;                 /* gris por defecto */
+  cursor: pointer;             /* mano cuando pasas el mouse */
+  transition: color 0.2s;      /* animación suave al cambiar color */
+}
+
+.rating-form .stars input:checked ~ label {
+  color: gold;                 /* pinta de dorado la estrella seleccionada */
+}
+
+.rating-form .stars label:hover,
+.rating-form .stars label:hover ~ label {
+  color: gold;                 /* ilumina estrellas al pasar el mouse */
+}

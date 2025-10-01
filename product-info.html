@@ -53,6 +53,36 @@
             </div>
           </div>
         </div>
+<div class="rating-section mt-4">
+  <h3 class="mb-3">Califica este producto</h3>
+  <form id="rating-form" class="rating-form">
+    <!-- Estrellas -->
+    <div class="stars mb-3">
+      <input type="radio" id="star5" name="rating" value="5">
+      <label for="star5">★</label>
+      <input type="radio" id="star4" name="rating" value="4">
+      <label for="star4">★</label>
+      <input type="radio" id="star3" name="rating" value="3">
+      <label for="star3">★</label>
+      <input type="radio" id="star2" name="rating" value="2">
+      <label for="star2">★</label>
+      <input type="radio" id="star1" name="rating" value="1">
+      <label for="star1">★</label>
+    </div>
+
+    <!-- Comentario -->
+    <div class="mb-3">
+      <textarea id="comment-text" class="form-control" rows="3" placeholder="Contanos tu experiencia..." required></textarea>
+    </div>
+
+    <!-- Botón -->
+    <button type="submit">Enviar</button>
+  </form>
+</div>
+
+<!-- Contenedor de comentarios -->
+<div id="product-comments" class="mt-4"></div>
+
         <!-- Productos similares -->
         <div class="row mt-5">
           <div class="col-12">
