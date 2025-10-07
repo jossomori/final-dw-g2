@@ -7,11 +7,14 @@
 :root {
     /* Colores */
     --bg-color: #fff;
+    --subtle-bg-color: #f5f5f5;
     --header-bg-color: #fff;
     --footer-bg-color: #fff;
     --primary-color: #efa639;
+    --primary-dark: #d18d1a;
     --text-color: #000;
     --secondary-text: #707070;
+    --link-color: #0d6efd;
     --border-color: rgba(0, 0, 0, 0.2);
     --shadow-color: rgba(0, 0, 0, 0.3);
     --hover-shadow-color: rgba(0, 0, 0, 0.5);
