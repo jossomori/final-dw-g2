@@ -158,12 +158,8 @@ footer p {
 }
 
 footer a {
-<<<<<<< Updated upstream
     color: var(--text-color);
-=======
->>>>>>> Stashed changes
     text-decoration: underline;
-    color: var(--text-color);
 }
 
 

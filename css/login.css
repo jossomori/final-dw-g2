@@ -152,12 +152,11 @@ header {
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
-    transition: box-shadow 0.3s ease;
 }
 
 .login-btn:hover,
 .login-btn:focus {
-    box-shadow: var(--primary-shadow);
+    background-color: var(--primary-dark);
 }
 
 /* ########## LINKS ########## */
@@ -179,6 +178,10 @@ header {
     color: var(--text-color);
 }
 
+.login-link:hover {
+    color: var(--link-color);
+}
+
 /* ########## FOOTER ########## */
 footer {
     font-size: var(--font-size-sm);
@@ -195,6 +198,10 @@ footer p {
 footer a {
     text-decoration: underline;
     color: var(--text-color);
+}
+
+footer a:hover {
+    color: var(--link-color);
 }
 
 /* ########## TABLET ########## */
