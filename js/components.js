@@ -1,3 +1,5 @@
+import { checkAuth, setupStorageListener } from './auth.js';
+
 function loadHeader() {
     const header = document.createElement('header');
     header.innerHTML = `
@@ -22,11 +24,18 @@ function loadHeader() {
                     </svg>
                 </button>
 
-                <button class="button account-button">
-                    <svg class="icon account-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5m0-8c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3M4 22h16c.55 0 1-.45 1-1v-1c0-3.86-3.14-7-7-7h-4c-3.86 0-7 3.14-7 7v1c0 .55.45 1 1 1m6-7h4c2.76 0 5 2.24 5 5H5c0-2.76 2.24-5 5-5"></path>
-                    </svg>
-                </button>
+                <div class="dropdown">
+                    <button class="button account-button" id="nombreUsuarioBtn">
+                        <svg class="icon account-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5m0-8c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3M4 22h16c.55 0 1-.45 1-1v-1c0-3.86-3.14-7-7-7h-4c-3.86 0-7 3.14-7 7v1c0 .55.45 1 1 1m6-7h4c2.76 0 5 2.24 5 5H5c0-2.76 2.24-5 5-5"></path>
+                        </svg>
+                        <span id="nombreUsuario"></span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="my-profile.html">Mi perfil</a>
+                        <a href="#" id="cerrarSesion">Cerrar sesión</a>
+                    </div>
+                </div>
 
                 <button class="button menu-button">
                     <svg class="icon menu-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,6 +60,49 @@ function loadFooter() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Verificar autenticación antes de cargar componentes
+    if (!checkAuth() && window.location.pathname.split('/').pop() !== 'login.html') {
+        return;
+    }
+    
     loadHeader();
     loadFooter();
+    setupStorageListener();
+
+    const usuario = checkAuth();
+    if (!usuario) return;
+
+    // Mostrar nombre de usuario y funcionalidad de cerrar sesión
+    const nombreUsuario = document.getElementById("nombreUsuario");
+    if (nombreUsuario) {
+        nombreUsuario.textContent = usuario;
+    }
+
+    // Manejar el evento de cerrar sesión
+    const cerrarSesionBtn = document.getElementById("cerrarSesion");
+    if (cerrarSesionBtn) {
+        cerrarSesionBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.removeItem("usuarioLogueado");
+            window.location.href = "login.html";
+        });
+    }
+
+    // Manejar click en el botón de usuario
+    const userButton = document.getElementById('nombreUsuarioBtn');
+    const dropdownContent = document.querySelector('.dropdown-content');
+
+    if (userButton && dropdownContent) {
+        userButton.addEventListener("click", (e) => {
+            e.stopPropagation(); // Evitar que el click se propague al documento
+            dropdownContent.classList.toggle("show");
+        });
+
+        // Cerrar dropdown cuando se hace click fuera
+        document.addEventListener("click", (e) => {
+            if (!dropdownContent.contains(e.target) && !userButton.contains(e.target)) {
+                dropdownContent.classList.remove("show");
+            }
+        });
+    }
 });
