@@ -17,12 +17,14 @@ const ERROR_MESSAGES = {
     NO_MAIN_IMAGE: 'No se encontró el elemento main-product-image'
 };
 
+
 const showError = (message) => {
     const container = document.querySelector(ELEMENT_IDS.MAIN_CONTAINER);
     if (container) {
         container.innerHTML = `<div class="alert alert-danger text-center">${message}</div>`;
     }
 };
+
 
 const setupProductGallery = (product) => {
     if (!product.images?.length) {
@@ -43,7 +45,7 @@ const setupProductGallery = (product) => {
     if (thumbnailsContainer) {
         const thumbsHTML = product.images.map((img, i) => `
             <img src="${img}" 
-                 alt="${product.name} miniatura" 
+                 alt="${product.name} miniatura ${i + 1}" 
                  class="img-fluid ${i === 0 ? 'thumbnail-active' : ''}" 
                  tabindex="0"
                  data-img-idx="${i}">
@@ -61,7 +63,7 @@ const setupProductGallery = (product) => {
             // Manejar click
             thumb.addEventListener('click', updateThumbnail);
             
-            // Manejar navegación por teclado
+            // Manejar navegación por teclado (accesibilidad)
             thumb.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -71,6 +73,7 @@ const setupProductGallery = (product) => {
         });
     }
 };
+
 
 const updateCategoryInfo = async (categoryName, categoryLink) => {
     try {
@@ -88,6 +91,7 @@ const updateCategoryInfo = async (categoryName, categoryLink) => {
         console.error('Error fetching categories:', error);
     }
 };
+
 
 const updateProductInfo = async (product) => {
     const elements = {
@@ -110,29 +114,53 @@ const updateProductInfo = async (product) => {
     }
 
     document.title = `${product.name} - eMercado`;
-}
+};
 
-const renderSimilarProducts = (relatedProducts) => {
+
+const renderSimilarProducts = async (relatedProducts, catID) => {
     if (!relatedProducts?.length) return;
-
+    
     const container = document.getElementById(ELEMENT_IDS.SIMILAR_PRODUCTS);
     if (!container) return;
-
-    const similarProductsHTML = relatedProducts.map(product => `
-        <div class="col-md-3 mb-4">
-            <div class="similar-card h-100" 
-                 onclick="localStorage.setItem('productID', ${product.id}); window.location='product-info.html';">
-                <img src="${product.image}" class="similar-img" alt="${product.name}">
-                <div class="similar-info">
-                    <div class="similar-title-card">${product.name}</div>
-                    <div class="similar-desc">Haz click para ver más detalles</div>
+    
+    let detailedRelatedProducts = relatedProducts;
+    
+    if (catID) {
+        try {
+            const categoryProductsResult = await getJSONData(`${PRODUCTS_URL}${catID}${EXT_TYPE}`);
+            if (categoryProductsResult.status === 'ok' && categoryProductsResult.data.products) {
+                const allProductsMap = new Map(
+                    categoryProductsResult.data.products.map(p => [p.id, p])
+                );
+                detailedRelatedProducts = relatedProducts.map(
+                    related => allProductsMap.get(related.id) || related
+                );
+            }
+        } catch (error) {
+            console.error("No se pudieron cargar los detalles de productos relacionados:", error);
+        }
+    }
+    
+    const similarProductsHTML = detailedRelatedProducts.map(product => `
+        <div class="similar-card"
+             onclick="localStorage.setItem('productID', ${product.id}); window.location='product-info.html';"
+             role="button"
+             tabindex="0">
+            <img src="${product.image}" class="similar-img" alt="${product.name}">
+            <div class="similar-info">
+                <div class="similar-title-card">${product.name}</div>
+                <div class="similar-desc">${product.description || 'Haz clic para ver más detalles'}</div>
+                <div class="similar-card-bottom">
+                    <span class="similar-price">${product.currency || ''} ${product.cost || ''}</span>
+                    <small class="similar-sold-count">${product.soldCount || 0} vendidos</small>
                 </div>
             </div>
         </div>
     `).join('');
-
+    
     container.innerHTML = similarProductsHTML;
 };
+
 
 const initProductPage = async () => {
     const productID = localStorage.getItem('productID');
@@ -146,9 +174,17 @@ const initProductPage = async () => {
         
         if (result.status === 'ok' && result.data) {
             const product = result.data;
+            
+            // Configurar galería
             setupProductGallery(product);
+            
+            // Actualizar información
             await updateProductInfo(product);
-            renderSimilarProducts(product.relatedProducts);
+            
+            // Renderizar productos similares
+            const catID = localStorage.getItem('catID');
+            await renderSimilarProducts(product.relatedProducts, catID);
+
         } else {
             showError(ERROR_MESSAGES.LOAD_ERROR);
         }
@@ -157,5 +193,6 @@ const initProductPage = async () => {
         showError(ERROR_MESSAGES.LOAD_ERROR);
     }
 };
+
 
 document.addEventListener('DOMContentLoaded', initProductPage);
