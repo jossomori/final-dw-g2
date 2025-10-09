@@ -7,6 +7,7 @@ const ERROR_MESSAGES = {
     NO_RATINGS: 'No hay valoraciones disponibles.'
 };
 
+let allComments = [];
 
 const createStarRating = (rating) => {
     let stars = '';
@@ -20,7 +21,6 @@ const renderStars = (score) => {
     return `<div class="comment-stars">${createStarRating(score)}</div>`;
 };
 
-
 function calculateRatingStats(ratings) {
     const stats = {
         average: 0,
@@ -30,18 +30,15 @@ function calculateRatingStats(ratings) {
         }
     };
 
-    // Contar valoraciones por nivel
     ratings.forEach(rating => {
         stats.countByRating[rating.score] = (stats.countByRating[rating.score] || 0) + 1;
     });
 
-    // Calcular promedio
     const sum = ratings.reduce((acc, rating) => acc + rating.score, 0);
     stats.average = ratings.length > 0 ? (sum / ratings.length).toFixed(1) : 0;
 
     return stats;
 }
-
 
 function createRatingBar(rating, count, total) {
     const percentage = total > 0 ? (count / total) * 100 : 0;
@@ -61,7 +58,6 @@ function createRatingBar(rating, count, total) {
     `;
 }
 
-
 function renderRatingsSection(stats) {
     const ratingsSection = document.getElementById(RATINGS_SECTION_ID);
     if (!ratingsSection) return;
@@ -73,16 +69,15 @@ function renderRatingsSection(stats) {
         </div>
         <div class="ratings-bars">
             ${[5, 4, 3, 2, 1].map(rating => createRatingBar(
-        rating,
-        stats.countByRating[rating],
-        stats.totalCount
-    )).join('')}
+                rating,
+                stats.countByRating[rating],
+                stats.totalCount
+            )).join('')}
         </div>
     `;
 
     ratingsSection.innerHTML = content;
 }
-
 
 const renderComments = (comments) => {
     const commentsContainer = document.getElementById(COMMENTS_CONTAINER_ID);
@@ -90,7 +85,7 @@ const renderComments = (comments) => {
 
     if (!comments || comments.length === 0) {
         commentsContainer.innerHTML = `
-            <h3 class="comments-title">Comentarios</h3>
+            <h3 class="section-title">Comentarios</h3>
             <p class="no-comments-text">No hay comentarios para este producto.</p>
         `;
         return;
@@ -103,7 +98,7 @@ const renderComments = (comments) => {
                     <span class="comment-user">${comment.user}</span>
                     ${renderStars(comment.score)}
                 </div>
-                <span class="comment-date">${new Date(comment.dateTime).toLocaleDateString('es-ES')}</span>
+                <span class="comment-date">${formatDate(comment.dateTime)}</span>
             </div>
             <div class="comment-body">
                 <p class="comment-description">${comment.description}</p>
@@ -119,6 +114,37 @@ const renderComments = (comments) => {
     `;
 };
 
+function formatDate(dateString) {
+    if (typeof dateString === 'string' && dateString.includes('/')) {
+        return dateString;
+    }
+    return new Date(dateString).toLocaleDateString('es-ES');
+}
+
+function loadCommentsFromStorage(productId) {
+    const stored = localStorage.getItem(`comentarios_${productId}`);
+    return stored ? JSON.parse(stored) : null;
+}
+
+function saveCommentsToStorage(productId, comments) {
+    localStorage.setItem(`comentarios_${productId}`, JSON.stringify(comments));
+}
+
+function addNewComment(productId, commentData) {
+    const newComment = {
+        user: commentData.user || localStorage.getItem('usuarioLogueado') || 'Anónimo',
+        description: commentData.description,
+        score: commentData.score,
+        dateTime: new Date().toLocaleDateString('es-ES') + ' ' + new Date().toLocaleTimeString('es-ES')
+    };
+
+    allComments.push(newComment);
+    saveCommentsToStorage(productId, allComments);
+
+    const stats = calculateRatingStats(allComments);
+    renderRatingsSection(stats);
+    renderComments(allComments);
+}
 
 const initRatingInteraction = () => {
     const stars = document.querySelectorAll('.rate-product-section .star');
@@ -163,10 +189,11 @@ const initRatingInteraction = () => {
                     s.classList.remove('selected');
                 }
             });
+            
+            document.querySelector('.rate-product-section').dataset.selectedRating = selectedRating;
         });
     });
 };
-
 
 function initCharCounter() {
     const textarea = document.querySelector('.rate-textarea');
@@ -184,21 +211,83 @@ function initCharCounter() {
     }
 }
 
+function initCommentSubmission() {
+    const submitButton = document.querySelector('.submit-rating');
+    const textarea = document.querySelector('.rate-textarea');
+    const rateSection = document.querySelector('.rate-product-section');
+
+    if (!submitButton || !textarea || !rateSection) return;
+
+    submitButton.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const productId = localStorage.getItem('productID');
+        if (!productId) {
+            alert('Error: No se ha seleccionado un producto.');
+            return;
+        }
+
+        const selectedRating = parseInt(rateSection.dataset.selectedRating || 0);
+        const commentText = textarea.value.trim();
+
+        if (selectedRating === 0) {
+            alert('Por favor, selecciona una calificación con estrellas.');
+            return;
+        }
+
+        if (commentText === '') {
+            alert('Por favor, escribe un comentario.');
+            return;
+        }
+
+        addNewComment(productId, {
+            description: commentText,
+            score: selectedRating
+        });
+
+        textarea.value = '';
+        rateSection.dataset.selectedRating = '0';
+        
+        const stars = document.querySelectorAll('.rate-product-section .star');
+        stars.forEach(star => {
+            star.classList.remove('filled', 'selected', 'hover-active');
+        });
+
+        document.querySelector('.char-count').textContent = '0/1500';
+
+        document.getElementById(COMMENTS_CONTAINER_ID)?.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'nearest' 
+        });
+    });
+}
 
 async function initRatingsAndComments() {
     try {
         const productId = localStorage.getItem('productID');
         if (!productId) throw new Error(ERROR_MESSAGES.NO_PRODUCT);
 
-        const url = PRODUCT_INFO_COMMENTS_URL + productId + EXT_TYPE;
+        const storedComments = loadCommentsFromStorage(productId);
 
-        const result = await getJSONData(url);
-        if (result.status === 'ok') {
-            const stats = calculateRatingStats(result.data);
+        if (storedComments) {
+            allComments = storedComments;
+            const stats = calculateRatingStats(allComments);
             renderRatingsSection(stats);
-            renderComments(result.data);
+            renderComments(allComments);
         } else {
-            throw new Error(ERROR_MESSAGES.LOAD_ERROR);
+            const url = PRODUCT_INFO_COMMENTS_URL + productId + EXT_TYPE;
+            const result = await getJSONData(url);
+            
+            if (result.status === 'ok') {
+                allComments = result.data;
+                saveCommentsToStorage(productId, allComments);
+                
+                const stats = calculateRatingStats(allComments);
+                renderRatingsSection(stats);
+                renderComments(allComments);
+            } else {
+                throw new Error(ERROR_MESSAGES.LOAD_ERROR);
+            }
         }
     } catch (error) {
         console.error('Error:', error.message);
@@ -209,9 +298,9 @@ async function initRatingsAndComments() {
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
     initRatingsAndComments();
     initRatingInteraction();
     initCharCounter();
+    initCommentSubmission();
 });
