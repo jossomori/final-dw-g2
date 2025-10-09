@@ -126,24 +126,42 @@ const initRatingInteraction = () => {
 
     stars.forEach((star, index) => {
         star.addEventListener('mouseover', () => {
-            for (let i = 0; i <= index; i++) {
-                stars[i].classList.add('filled');
-            }
-            for (let i = index + 1; i < stars.length; i++) {
-                stars[i].classList.remove('filled');
-            }
+            stars.forEach((s, i) => {
+                if (i <= index) {
+                    s.classList.add('filled');
+                    s.classList.add('hover-active');
+                } else {
+                    s.classList.remove('filled');
+                    s.classList.remove('hover-active');
+                }
+            });
         });
 
         star.addEventListener('mouseout', () => {
             stars.forEach((s, i) => {
-                s.classList.toggle('filled', i < selectedRating);
+                s.classList.remove('hover-active');
+                if (i < selectedRating) {
+                    s.classList.add('filled');
+                    s.classList.add('selected');
+                } else {
+                    s.classList.remove('filled');
+                    s.classList.remove('selected');
+                }
             });
         });
 
         star.addEventListener('click', () => {
             selectedRating = index + 1;
+            
             stars.forEach((s, i) => {
-                s.classList.toggle('filled', i < selectedRating);
+                s.classList.remove('hover-active');
+                if (i < selectedRating) {
+                    s.classList.add('filled');
+                    s.classList.add('selected');
+                } else {
+                    s.classList.remove('filled');
+                    s.classList.remove('selected');
+                }
             });
         });
     });

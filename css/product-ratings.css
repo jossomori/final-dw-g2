@@ -112,12 +112,13 @@
     cursor: pointer;
 }
 
-.rate-product-section .star-rating:hover .star {
+.rate-product-section .star.selected {
     color: var(--primary-color);
 }
 
-.rate-product-section .star-rating .star:hover ~ .star {
-    color: #bbb;
+.rate-product-section .star:hover,
+.rate-product-section .star.hover-active {
+    color: var(--primary-color);
 }
 
 .textarea-container {
