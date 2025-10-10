@@ -1,157 +1,198 @@
-document.addEventListener("DOMContentLoaded", function() {
-	const productID = localStorage.getItem("productID");
-	if (!productID) {
-		document.querySelector("main .container").innerHTML = '<div class="alert alert-danger text-center">No se ha seleccionado un producto.</div>';
-		return;
-	}
-	const url = `${PRODUCT_INFO_URL}${productID}${EXT_TYPE}`;
-	getJSONData(url).then(result => {
-		if (result.status === 'ok') {
-			const prod = result.data;
-			// Galería principal
-			console.log('API result:', result);
-			if (prod.images && prod.images.length > 0) {
-				const mainImg = document.getElementById('main-product-image');
-				if (mainImg) {
-					mainImg.src = prod.images[0];
-					mainImg.alt = prod.name;
-				} else {
-					console.warn('No se encontró el elemento main-product-image');
-				}
-			} else {
-				console.warn('El producto no tiene imágenes');
-			}
-			// Miniaturas
-			const thumbs = prod.images.map((img, i) => `
-				<img src="${img}" alt="${prod.name} miniatura" class="img-fluid rounded ${i === 0 ? 'border-primary' : ''}" style="width:110px;height:70px;object-fit:cover;cursor:pointer;" data-img-idx="${i}">
-			`).join('');
-			document.getElementById('product-thumbnails').innerHTML = thumbs;
-			// Miniaturas: cambiar imagen principal
-			document.querySelectorAll('#product-thumbnails img').forEach(thumb => {
-				thumb.addEventListener('click', function() {
-					document.getElementById('main-product-image').src = this.src;
-					document.querySelectorAll('#product-thumbnails img').forEach(t => t.classList.remove('border-primary'));
-					this.classList.add('border-primary');
-				});
-			});
-			// Info lateral
-			document.getElementById('product-sold-count').textContent = prod.soldCount + ' vendidos';
-			document.getElementById('product-name').textContent = prod.name;
-			document.title = prod.name + " - eMercado";
-			document.getElementById('product-description').textContent = prod.description;
-			document.getElementById('product-price').textContent = `USD ${prod.cost}`;
-			// Breadcrumb
-			const breadcrumbName = document.getElementById('breadcrumb-product-name');
-			if (breadcrumbName) breadcrumbName.textContent = prod.name;
-			// Productos similares
-			if (prod.relatedProducts && prod.relatedProducts.length) {
-				const similarList = prod.relatedProducts.map(sim => `
-					<div class="col-md-3 mb-4">
-						<div class="similar-card h-100" onclick="localStorage.setItem('productID', ${sim.id}); window.location='product-info.html';">
-							<img src="${sim.image}" class="similar-img" alt="${sim.name}">
-							<div class="similar-info">
-								<div class="similar-title-card">${sim.name}</div>
-								<div class="similar-desc">Generación 2019, variedad de colores...</div>
-								<div class="similar-price">USD ${sim.cost || ''}</div>
-							</div>
-						</div>
-					</div>
-				`).join('');
-				document.getElementById('similar-products').innerHTML = similarList;
-			}
-		} else {
-			document.querySelector("main .container").innerHTML = '<div class="alert alert-danger text-center">No se pudo cargar la información del producto.</div>';
-		}
-	});
-});
+const ELEMENT_IDS = {
+    MAIN_IMAGE: 'main-product-image',
+    THUMBNAILS: 'product-thumbnails',
+    SOLD_COUNT: 'product-sold-count',
+    PRODUCT_NAME: 'product-name',
+    DESCRIPTION: 'product-description',
+    PRICE: 'product-price',
+    BREADCRUMB: 'breadcrumb-product-name',
+    SIMILAR_PRODUCTS: 'similar-products',
+    MAIN_CONTAINER: 'main .container'
+};
 
-let comentarios = []; // acá vamos a mezclar API + nuevos :D
-const productID = localStorage.getItem("productID");
+const ERROR_MESSAGES = {
+    NO_PRODUCT: 'No se ha seleccionado un producto.',
+    LOAD_ERROR: 'No se pudo cargar la información del producto.',
+    NO_IMAGES: 'El producto no tiene imágenes',
+    NO_MAIN_IMAGE: 'No se encontró el elemento main-product-image'
+};
 
-// URL de comentarios de la API :
-const COMMENTS_URL = `https://japceibal.github.io/emercado-api/products_comments/${productID}.json`;
 
-// Al cargar la página ;
-document.addEventListener("DOMContentLoaded", () => {
-  // Primero, veo si ya hay comentarios en localStorage
-  const guardados = localStorage.getItem(`comentarios_${productID}`);
+const showError = (message) => {
+    const container = document.querySelector(ELEMENT_IDS.MAIN_CONTAINER);
+    if (container) {
+        container.innerHTML = `<div class="alert alert-danger text-center">${message}</div>`;
+    }
+};
 
-  if (guardados) {
-    // Si ya existen, los uso
-    comentarios = JSON.parse(guardados);
-    mostrarComentarios(comentarios);
-  } else {
-    // Si no existen, los traigo de la API y los guardo
-    fetch(COMMENTS_URL)
-      .then(res => res.json())
-      .then(data => {
-        comentarios = data;
-        localStorage.setItem(`comentarios_${productID}`, JSON.stringify(comentarios));
-        mostrarComentarios(comentarios);
-      });
-  }
-});
 
-// Manejar el formulario
-document.getElementById("rating-form").addEventListener("submit", (e) => {
-  e.preventDefault();
+const setupProductGallery = (product) => {
+    if (!product.images?.length) {
+        console.warn(ERROR_MESSAGES.NO_IMAGES);
+        return;
+    }
 
-  const usuario = localStorage.getItem("usuarioLogueado") || "Anónimo";
-  const score = parseInt(document.querySelector('input[name="rating"]:checked')?.value || 0);
-  const text = document.getElementById("comment-text").value;
+    const mainImg = document.getElementById(ELEMENT_IDS.MAIN_IMAGE);
+    if (!mainImg) {
+        console.warn(ERROR_MESSAGES.NO_MAIN_IMAGE);
+        return;
+    }
 
-  if (score === 0 || text.trim() === "") {
-    alert("Debes seleccionar una calificación y escribir un comentario.");
-    return;
-  }
+    mainImg.src = product.images[0];
+    mainImg.alt = product.name;
 
-  const nuevoComentario = {
-    user: usuario,
-    description: text,
-    score: score,
-    dateTime: new Date().toLocaleString("es-ES")
-  };
+    const thumbnailsContainer = document.getElementById(ELEMENT_IDS.THUMBNAILS);
+    if (thumbnailsContainer) {
+        const thumbsHTML = product.images.map((img, i) => `
+            <img src="${img}" 
+                 alt="${product.name} miniatura ${i + 1}" 
+                 class="img-fluid ${i === 0 ? 'thumbnail-active' : ''}" 
+                 tabindex="0"
+                 data-img-idx="${i}">
+        `).join('');
+        thumbnailsContainer.innerHTML = thumbsHTML;
 
-  // Lo agrego al array de comentarios
-  comentarios.push(nuevoComentario);
+        thumbnailsContainer.querySelectorAll('img').forEach(thumb => {
+            const updateThumbnail = () => {
+                mainImg.src = thumb.src;
+                thumbnailsContainer.querySelectorAll('img').forEach(t => 
+                    t.classList.remove('thumbnail-active'));
+                thumb.classList.add('thumbnail-active');
+            };
 
-  // Actualizo localStorage
-  localStorage.setItem(`comentarios_${productID}`, JSON.stringify(comentarios));
+            // Manejar click
+            thumb.addEventListener('click', updateThumbnail);
+            
+            // Manejar navegación por teclado (accesibilidad)
+            thumb.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    updateThumbnail();
+                }
+            });
+        });
+    }
+};
 
-  // Muestro todo de nuevo
-  mostrarComentarios(comentarios);
 
-  e.target.reset();
-});
+const updateCategoryInfo = async (categoryName, categoryLink) => {
+    try {
+        const result = await getJSONData(CATEGORIES_URL);
+        if (result.status === 'ok') {
+            const categories = result.data;
+            const category = categories.find(cat => cat.name === categoryName);
+            if (category) {
+                categoryLink.textContent = categoryName;
+                categoryLink.href = `products.html?catID=${category.id}`;
+                localStorage.setItem('catID', category.id);
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+    }
+};
 
-// Función para renderizar comentarios
-function mostrarComentarios(lista) {
-  const contenedor = document.getElementById("product-comments");
-  let html = "";
 
-  lista.forEach(com => {
-    html += `
-      <div class="comment border rounded p-2 mb-2">
-        <div class="d-flex justify-content-between">
-          <strong>${com.user}</strong>
-          <small class="text-muted">${com.dateTime}</small>
+const updateProductInfo = async (product) => {
+    const elements = {
+        soldCount: document.getElementById(ELEMENT_IDS.SOLD_COUNT),
+        name: document.getElementById(ELEMENT_IDS.PRODUCT_NAME),
+        description: document.getElementById(ELEMENT_IDS.DESCRIPTION),
+        price: document.getElementById(ELEMENT_IDS.PRICE),
+        breadcrumb: document.getElementById(ELEMENT_IDS.BREADCRUMB),
+        categoryLink: document.getElementById('breadcrumb-category')
+    };
+
+    if (elements.soldCount) elements.soldCount.textContent = `${product.soldCount} vendidos`;
+    if (elements.name) elements.name.textContent = product.name;
+    if (elements.description) elements.description.textContent = product.description;
+    if (elements.price) elements.price.textContent = `${product.currency} ${product.cost}`;
+    if (elements.breadcrumb) elements.breadcrumb.textContent = product.name;
+
+    if (elements.categoryLink && product.category) {
+        await updateCategoryInfo(product.category, elements.categoryLink);
+    }
+
+    document.title = `${product.name} - eMercado`;
+};
+
+
+const renderSimilarProducts = async (relatedProducts, catID) => {
+    if (!relatedProducts?.length) return;
+    
+    const container = document.getElementById(ELEMENT_IDS.SIMILAR_PRODUCTS);
+    if (!container) return;
+    
+    let detailedRelatedProducts = relatedProducts;
+    
+    if (catID) {
+        try {
+            const categoryProductsResult = await getJSONData(`${PRODUCTS_URL}${catID}${EXT_TYPE}`);
+            if (categoryProductsResult.status === 'ok' && categoryProductsResult.data.products) {
+                const allProductsMap = new Map(
+                    categoryProductsResult.data.products.map(p => [p.id, p])
+                );
+                detailedRelatedProducts = relatedProducts.map(
+                    related => allProductsMap.get(related.id) || related
+                );
+            }
+        } catch (error) {
+            console.error("No se pudieron cargar los detalles de productos relacionados:", error);
+        }
+    }
+    
+    const similarProductsHTML = detailedRelatedProducts.map(product => `
+        <div class="similar-card"
+             onclick="localStorage.setItem('productID', ${product.id}); window.location='product-info.html';"
+             role="button"
+             tabindex="0">
+            <img src="${product.image}" class="similar-img" alt="${product.name}">
+            <div class="similar-info">
+                <div class="similar-title-card">${product.name}</div>
+                <div class="similar-desc">${product.description || 'Haz clic para ver más detalles'}</div>
+                <div class="similar-card-bottom">
+                    <span class="similar-price">${product.currency || ''} ${product.cost || ''}</span>
+                    <small class="similar-sold-count">${product.soldCount || 0} vendidos</small>
+                </div>
+            </div>
         </div>
-        <div class="stars mb-1">${renderStars(com.score)}</div>
-        <p>${com.description}</p>
-      </div>
-    `;
-  });
+    `).join('');
+    
+    container.innerHTML = similarProductsHTML;
+};
 
-  contenedor.innerHTML = html;
-}
 
-// Función para pintar estrellitas
-function renderStars(score) {
-  let stars = "";
-  for (let i = 1; i <= 5; i++) {
-    stars += i <= score 
-      ? `<span style="color:gold;">★</span>` 
-      : `<span style="color:#ccc;">★</span>`;
-  }
-  return stars;
-}
+const initProductPage = async () => {
+    const productID = localStorage.getItem('productID');
+    if (!productID) {
+        showError(ERROR_MESSAGES.NO_PRODUCT);
+        return;
+    }
+
+    try {
+        const result = await getJSONData(`${PRODUCT_INFO_URL}${productID}${EXT_TYPE}`);
+        
+        if (result.status === 'ok' && result.data) {
+            const product = result.data;
+            
+            // Configurar galería
+            setupProductGallery(product);
+            
+            // Actualizar información
+            await updateProductInfo(product);
+            
+            // Renderizar productos similares
+            const catID = localStorage.getItem('catID');
+            await renderSimilarProducts(product.relatedProducts, catID);
+
+        } else {
+            showError(ERROR_MESSAGES.LOAD_ERROR);
+        }
+    } catch (error) {
+        console.error('Error loading product:', error);
+        showError(ERROR_MESSAGES.LOAD_ERROR);
+    }
+};
+
+
+document.addEventListener('DOMContentLoaded', initProductPage);

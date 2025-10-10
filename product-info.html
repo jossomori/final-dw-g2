@@ -1,111 +1,136 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Detalle de producto - eMercado</title>
+    <title></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/base.css" rel="stylesheet">
     <link href="css/components.css" rel="stylesheet">
     <link href="css/product-info.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
+    <link href="css/product-ratings.css" rel="stylesheet">
 </head>
-<body> 
-   <nav aria-label="breadcrumb" class="bg-white border-bottom mb-4">
-    <div class="container py-2">
-      <ol class="breadcrumb mb-0" id="breadcrumb-product">
-        <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="#" id="breadcrumb-category">Autos</a></li>
-        <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-product-name">Producto</li>
-      </ol>
-    </div>
-    </nav>   
 
+<body>
     <main>
-      <div class="container py-4">
-        <div class="row g-5 align-items-start">
-          <!-- Galería principal y miniaturas -->
-          <div class="col-lg-7">
-            <div class="product-gallery mb-3">
-              <img id="main-product-image" class="img-fluid rounded" src="" alt="Imagen principal producto">
+        <div class="container py-4">
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="product-breadcrumb">
+                <ol class="breadcrumb mb-0" id="breadcrumb-product">
+                    <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="#" id="breadcrumb-category">Autos</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-product-name">Producto
+                    </li>
+                </ol>
+            </nav>
+
+            <!-- Grid de 2 columnas 50/50 -->
+            <div class="product-layout">
+
+                <!-- COLUMNA IZQUIERDA -->
+                <div class="product-column-left">
+
+                    <!-- Galería principal -->
+                    <div class="product-gallery">
+                        <img id="main-product-image" class="img-fluid" src="" alt="Imagen principal producto">
+
+                        <!-- Miniaturas -->
+                        <div class="product-thumbnails" id="product-thumbnails">
+                            <!-- Miniaturas dinámicas -->
+                        </div>
+                    </div>
+
+
+
+                    <!-- Valoraciones -->
+                    <section id="ratings-section" class="ratings-section"></section>
+
+                </div>
+
+                <!-- COLUMNA DERECHA -->
+                <div class="product-column-right">
+
+                    <div class="product-info-wrapper">
+                        
+                        <!-- Info del producto -->
+                        <div class="product-info-panel">
+                            <div class="product-sold-count" id="product-sold-count">0 vendidos</div>
+                            <h1 class="product-name" id="product-name">Nombre del producto</h1>
+                            <div class="product-description" id="product-description">Descripción del producto.</div>
+
+                            <div class="product-price-section">
+                                <div class="product-price" id="product-price">USD 0</div>
+                                <button class="buy-button">
+                                    <span>Añadir al carrito</span>
+                                    <svg class="icon add-to-cart-icon" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M10.5 18a1.5 1.5 0 1 0 0 3 1.5 1.5 0 1 0 0-3M17.5 18a1.5 1.5 0 1 0 0 3 1.5 1.5 0 1 0 0-3M15 13v-3h3V8h-3V5h-2v3h-3v2h3v3z">
+                                        </path>
+                                        <path
+                                            d="M8.82 15.77c.31.75 1.04 1.23 1.85 1.23h6.18c.79 0 1.51-.47 1.83-1.2L21.66 9h-2.18l-2.62 6h-6.18L5.92 3.62C5.76 3.25 5.4 3 5 3H2v2h2.33z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comentarios -->
+                    <div id="comments-container" class="comments-section"></div>
+
+                </div>
+
             </div>
-            <div class="product-thumbnails d-flex gap-3" id="product-thumbnails">
-              <!-- Miniaturas dinámicas -->
+
+            <!-- Calificar producto -->
+            <section class="rate-product-section">
+                <div class="rate-header">
+                    <h3 class="rate-title">Califica este producto</h3>
+                    <div class="star-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                </div>
+                <div class="textarea-container">
+                    <textarea class="rate-textarea" placeholder="Describe cuál fue tu experiencia con este producto"
+                        maxlength="1500"></textarea>
+                    <div class="char-count">0/1500</div>
+                </div>
+                <button class="submit-rating">Enviar calificación</button>
+            </section>
+
+            <!-- Productos relacionados -->
+            <div class="related-products-section">
+                <h3 class="section-title">Productos similares</h3>
+                <div class="related-products" id="similar-products">
+                    <!-- Similares dinámicos -->
+                </div>
             </div>
-          </div>
-          <!-- Info lateral -->
-          <div class="col-lg-5">
-            <div class="product-info-panel">
-              <div class="mb-2 text-muted" id="product-sold-count">0 vendidos</div>
-              <h2 class="mb-3 fw-bold" id="product-name">Nombre del producto</h2>
-              <div class="mb-3" id="product-description">Descripción del producto.</div>
-              <div class="d-flex align-items-center gap-3 mb-4">
-                <div class="fs-3 fw-semibold mb-0" id="product-price">USD 0</div>
-                <button class="btn btn-warning btn-lg d-flex align-items-center gap-2" id="add-to-cart-btn">
-                  <i class="fa fa-shopping-cart"></i> Añadir al carrito
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
-<div class="rating-section mt-4">
-  <h3 class="mb-3">Califica este producto</h3>
-  <form id="rating-form" class="rating-form">
-    <!-- Estrellas -->
-    <div class="stars mb-3">
-      <input type="radio" id="star5" name="rating" value="5">
-      <label for="star5">★</label>
-      <input type="radio" id="star4" name="rating" value="4">
-      <label for="star4">★</label>
-      <input type="radio" id="star3" name="rating" value="3">
-      <label for="star3">★</label>
-      <input type="radio" id="star2" name="rating" value="2">
-      <label for="star2">★</label>
-      <input type="radio" id="star1" name="rating" value="1">
-      <label for="star1">★</label>
-    </div>
-
-    <!-- Comentario -->
-    <div class="mb-3">
-      <textarea id="comment-text" class="form-control" rows="3" placeholder="Contanos tu experiencia..." required></textarea>
-    </div>
-
-    <!-- Botón -->
-    <button type="submit">Enviar</button>
-  </form>
-</div>
-
-<!-- Contenedor de comentarios -->
-<div id="product-comments" class="mt-4"></div>
-
-        <!-- Productos similares -->
-        <div class="row mt-5">
-          <div class="col-12">
-            <h3 class="mb-4">Productos similares</h3>
-            <div class="row" id="similar-products">
-              <!-- Similares dinámicos -->
-            </div>
-          </div>
-        </div>
-      </div>
     </main>
 
-
-    <script src="js/components.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/init.js"></script>
-    <script src="js/product-info.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/components.js"></script>
+    <script type="module" src="js/product-info.js"></script>
+    <script type="module" src="js/product-ratings.js"></script>
 
-  
     <div id="spinner-wrapper" style="display: none;">
-  <div class="spinner-border text-warning" role="status"></div>
-</div>
-
+        <div class="spinner-border text-warning" role="status"></div>
+    </div>
 
 </body>
+
 </html>
