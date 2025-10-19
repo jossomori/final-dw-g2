@@ -3,12 +3,36 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Mi perfil</title>
+    <title>eMercado - Todo lo que busques está aquí</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/base.css" rel="stylesheet">
-    <link href="css/components.css" rel="stylesheet">
-    <link href="css/my-profile.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/dark-mode.css" rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem("darkMode");
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            if (savedTheme === "true" || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add("dark-mode");
+            }
+        })();
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
@@ -17,72 +41,29 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav w-100 justify-content-between">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="categories.html">Categorías</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sell.html">Vender</a>
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
     <main>
-      <div class="container d-flex flex-column align-items-center">
-  <h2 class="mb-4">Mi perfil</h2>
-<div class="d-flex flex-column flex-md-row align-items-start gap-4">
-<!-- Panel foto + menú -->
-<aside class="bg-black p-3 rounded-4" style="width:220px;">
-<ul class="list-unstyled">
-<li class="mb-3">
-<button class="btn w-100 text-start text-dark fw-bold" style="background-color:#f8a31b;">
-<i class="bi bi-person-fill me-2"></i>Mi perfil
-</button>
-</li>
-<li class="mb-3">
-<button class="btn w-100 text-start text-light">
-<i class="bi bi-bag me-2"></i>Vender
-</button>
-</li>
-<li>
-<button class="btn w-100 text-start text-light">
-<i class="bi bi-gear me-2"></i>Avanzado
-</button>
-</li>
-</ul>
-</aside>
-
-<section class="flex-grow-1 text-center">
-<img src="img/myprofile.png" alt="Foto" width="120" class="rounded-circle mb-3">
-
-<!-- Vista del perfil -->
-<div id="perfilDatos" class="card bg-black text-start p-3 mb-4 mx-auto" style="max-width:400px;">
-<p><strong>Nombre:</strong> <span id="nombreTexto">Usuario123</span></p>
-<p><strong>Apellido:</strong> <span id="apellidoTexto">-</span></p>
-<p><strong>E-mail:</strong> <span id="emailTexto">Usuario123@gmail.com</span></p>
-<p><strong>Teléfono:</strong> <span id="telefonoTexto">095-555-555</span></p>
-<div class="text-center mt-3">
-<button id="editarBtn" class="btn btn-warning px-4">Editar perfil</button>
-</div>
-</div>
-<!-- Formulario (oculto por defecto) -->
-<form id="perfilForm" class="mx-auto text-start" style="max-width:680px; display: none;">
-<div class="row g-3">
-<div class="col-md-6">
-<label for="nombre" class="form-label">Nombre:</label>
-<input type="text" class="form-control bg-dark text-light border-warning" id="nombre" value="Usuario123">
-</div>
-<div class="col-md-6">
-<label for="apellido" class="form-label">Apellido:</label>
-<input type="text" class="form-control bg-dark text-light border-0" id="apellido" value="-">
-</div>
-<div class="col-md-6">
-<label for="email" class="form-label">E-mail:</label>
-<input type="email" class="form-control bg-dark text-light border-0" id="email" value="Usuario123@gmail.com" disabled>
-</div>
-<div class="col-md-6">
-<label for="telefono" class="form-label">Teléfono:</label>
-<input type="text" class="form-control bg-dark text-light border-0" id="telefono" value="095-555-555">
-</div>
-</div>
-<div class="text-center mt-4">
-<button type="submit" class="btn btn-warning px-4">Guardar</button>
-</div>
-</form>
-</section>
-</div>
+        <div class="container">
+            <div class="alert alert-danger text-center" role="alert">
+                <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+            </div>
+        </div>
     </main>
     <footer class="text-muted">
         <div class="container">
@@ -98,6 +79,7 @@
     <script type="module" src="js/auth.js"></script>
     <script type="module" src="js/components.js"></script>
     <script type="module" src="js/my-profile.js"></script>
+    <script type="module" src="js/dark-mode.js"></script>
 </body>
 
 </html>

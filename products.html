@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Autos - eMercado</title>
+    <title></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -11,17 +11,27 @@
     <link href="css/base.css" rel="stylesheet">
     <link href="css/components.css" rel="stylesheet">
     <link href="css/products.css" rel="stylesheet">
+    <link href="css/dark-mode.css" rel="stylesheet">
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem("darkMode");
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            if (savedTheme === "true" || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add("dark-mode");
+            }
+        })();
+    </script>
 </head>
 <body>    
     <main>
-        <h1>Autos</h1>
+         <h1 id="category-title" class="mb-4"></h1>
         <div class="layout">
             <section class="products-filters">
                 <div class="filter-section">
                     <h3>Ordenar por</h3>
                     <select id="sort-options" class="form-select">
                         <option value="rel">Relevancia</option>
-                        <option value="asc">Precio: menor a mayor</option>
+                        <option value="asc" selected>Precio: menor a mayor</option>
                         <option value="desc">Precio: mayor a menor</option>
                     </select>
                 </div>
@@ -37,13 +47,16 @@
                     </div>
                 </div>
             </section>
+			
             <section class="products-container" id="productos"></section>
         </div>
     </main>
 
-    <script src="js/components.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/init.js"></script>
-    <script src="js/products.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/components.js"></script>
+    <script type="module" src="js/products.js"></script>
+    <script type="module" src="js/dark-mode.js"></script>
 </body>
 </html>

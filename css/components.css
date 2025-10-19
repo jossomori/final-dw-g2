@@ -41,6 +41,10 @@ header {
     box-shadow: 0 0 0 3px var(--focus-outline);
 }
 
+.search-input::placeholder {
+    font-family: var(--font-family);
+}
+
 .search-button {
     position: absolute;
     right: 1rem;
@@ -55,12 +59,66 @@ header {
     flex-shrink: 0;
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--bg-color);
+    min-width: 160px;
+    box-shadow: var(--shadow);
+    z-index: 1;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    margin-top: 1rem;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-decoration: none;
+    display: block;
+    font-size: var(--font-size-base);
+    font-family: var(--font-family);
+    border-radius: var(--border-radius);
+}
+
+.dropdown-content a:hover {
+    background-color: var(--subtle-bg-color);
+}
+
+#nombreUsuarioBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+}
+
+.button svg path {fill: currentColor;}
+
+#nombreUsuario {
+    font-size: var(--font-size-md);
+    font-weight: 500;
+}
+
 .button {
     background: none;
     border: none;
     cursor: pointer;
-    display: flex;
-    align-items: center
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    height: 2rem;
+    color: var(--text-color);
 }
 
 .icon {
@@ -68,8 +126,10 @@ header {
     height: 2rem;
 }
 
-.icon:hover {
+.button:hover .icon,
+.button:hover #nombreUsuario {
     fill: var(--primary-color);
+    color: var(--primary-color);
 }
 
 .menu-button {
@@ -97,16 +157,10 @@ footer {
 }
 
 footer p {
-    color: var(--text-color);
     margin: 0;
 }
 
 footer a {
-    color: var(--text-color);
-    text-decoration: none;
-}
-
-footer a:hover {
     color: var(--text-color);
     text-decoration: underline;
 }
@@ -133,10 +187,6 @@ footer a:hover {
         flex-direction: column;
         align-items: center;
         gap: var(--spacing-md);
-    }
-
-    .footer-container a {
-        text-decoration: underline;
     }
 }
 

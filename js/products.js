@@ -1,4 +1,7 @@
-const URL = "https://japceibal.github.io/emercado-api/cats_products/101.json";
+// Obtener catID de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const catID = urlParams.get('catID');
+const URL = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
 let productsData = [];
 let filteredProducts = [];
 
@@ -11,6 +14,9 @@ function loadProducts() {
     fetch(URL)
         .then(response => response.json())
         .then(data => {
+            document.title = data.catName;
+            document.getElementById("category-title").textContent = data.catName;
+            
             productsData = data.products;
             filteredProducts = [...productsData];
 
@@ -23,15 +29,15 @@ function loadProducts() {
 
 function setupEventListeners() {
     document.getElementById("sort-options").addEventListener("change", sortProducts);
-    document.getElementById("apply-price-filter").addEventListener("click", filterByPrice);
+    document.getElementById("apply-price-filter").addEventListener("click", applyFilters);
     
     // Filtrar con Enter
     document.getElementById("min-price").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") filterByPrice();
+        if (e.key === "Enter") applyFilters();
     });
     
     document.getElementById("max-price").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") filterByPrice();
+        if (e.key === "Enter") applyFilters();
     });
 
     // Filtrar en tiempo real por texto
@@ -89,6 +95,10 @@ function displayProducts(products) {
                 </div>
             </div>
         `;
+        item.addEventListener("click", () => {
+            localStorage.setItem("productID", prod.id); 
+            window.location = "product-info.html";       
+        });
 
         // Esto es para que al hacer click en la tarjeta te lleve a product-info.html
         item.addEventListener("click", function() {
@@ -123,15 +133,28 @@ function sortProductsByDefault() {
     filteredProducts.sort((a, b) => a.cost - b.cost);
     document.getElementById("sort-options").value = "asc";
 }
-//  Nueva función de filtros combinados (precio + buscador)
+
 function applyFilters() {
-    const minPrice = parseFloat(document.getElementById("min-price").value) || 0;
-    const maxPrice = parseFloat(document.getElementById("max-price").value) || Number.MAX_SAFE_INTEGER;
+    // Intenta convertir los valores a números. Si no son números, el resultado será NaN.
+    let minPrice = parseFloat(document.getElementById("min-price").value);
+    let maxPrice = parseFloat(document.getElementById("max-price").value);
+
+    // Solo hacemos la validación si ambos son números válidos.
+    if (!isNaN(minPrice) && !isNaN(maxPrice) && minPrice > maxPrice) {
+        alert("El filtro de precio mínimo no puede ser mayor al máximo.");
+        return;
+    }
+
+    // Si minPrice es NaN (o 0, que es falsy), se le asigna 0.
+    minPrice = minPrice || 0;
+    // Si maxPrice es NaN, se le asigna el número máximo.
+    maxPrice = maxPrice || Number.MAX_SAFE_INTEGER;
+
     const searchText = document.querySelector(".search-input").value.toLowerCase();
 
     filteredProducts = productsData.filter(product => {
         const matchesPrice = product.cost >= minPrice && product.cost <= maxPrice;
-        const matchesSearch = 
+        const matchesSearch =
             product.name.toLowerCase().includes(searchText) ||
             product.description.toLowerCase().includes(searchText);
         return matchesPrice && matchesSearch;
@@ -139,7 +162,4 @@ function applyFilters() {
 
     sortProducts();
 }
-// Reemplazamos filterByPrice para que use applyFilters
-function filterByPrice() {
-    applyFilters();
-}
+
