@@ -1,0 +1,225 @@
+/* ############## HEADER ############## */
+header {
+    background-color: var(--header-bg-color);
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-container {
+    margin: 0 auto;
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    justify-content: space-between;
+    max-width: 80rem;
+}
+
+.logo {
+    max-height: 1.75rem;
+    flex-shrink: 0;
+    padding-bottom: var(--spacing-xxs);
+}
+
+.search-section {
+    position: relative;
+    flex: 1;
+    max-width: 28rem;
+}
+
+.search-input {
+    width: 100%;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    outline: none;
+    padding: 0.75rem 3rem 0.75rem 1rem;
+    /* padding-right extra para el icono */
+    transition: all 0.3s ease-in-out;
+}
+
+.search-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--focus-outline);
+}
+
+.search-input::placeholder {
+    font-family: var(--font-family);
+}
+
+.search-button {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xl);
+    flex-shrink: 0;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--bg-color);
+    min-width: 160px;
+    box-shadow: var(--shadow);
+    z-index: 1;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    margin-top: 1rem;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-decoration: none;
+    display: block;
+    font-size: var(--font-size-base);
+    font-family: var(--font-family);
+    border-radius: var(--border-radius);
+}
+
+.dropdown-content a:hover {
+    background-color: var(--subtle-bg-color);
+}
+
+#nombreUsuarioBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+}
+
+.button svg path {fill: currentColor;}
+
+#nombreUsuario {
+    font-size: var(--font-size-md);
+    font-weight: 500;
+}
+
+.button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    height: 2rem;
+    color: var(--text-color);
+}
+
+.icon {
+    width: 2rem;
+    height: 2rem;
+}
+
+.button:hover .icon,
+.button:hover #nombreUsuario {
+    fill: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.menu-button {
+    display: none;
+}
+
+
+/* ############## FOOTER ############## */
+footer {
+    background-color: var(--footer-bg-color);
+    border-top: 1px solid var(--border-color);
+    padding: var(--spacing-2xl);
+    margin-top: var(--spacing-xl);
+}
+
+.footer-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+    gap: var(--spacing-2xl);
+    font-size: var(--font-size-sm);
+    font-weight: 300;
+    align-items: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-wrap: wrap;
+    }
+
+    .search-section {
+        order: 3;
+        max-width: 100%;
+        flex: 0 0 100%;
+        margin-top: var(--spacing-sm);
+    }
+
+    footer {
+        padding: var(--spacing-xl);
+    }
+
+    .footer-container {
+        text-align: center;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-md);
+    }
+}
+
+
+@media (max-width: 450px) {
+    .logo {
+        max-width: 80%;
+    }
+
+    .search-section {
+        display: none;
+    }
+
+    .account-button {
+        display: none;
+    }
+
+    .cart-button {
+        display: none;
+    }
+
+    .menu-button {
+        display: block;
+    }
+}
+
+
+@media (max-width: 320px) {
+    .logo {
+        max-width: 70%;
+    }
+
+    .menu-icon {
+        width: 1.5rem;
+    }
+}

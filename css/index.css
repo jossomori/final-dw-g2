@@ -1,0 +1,108 @@
+/* ############## BODY ############## */
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    min-height: 100vh;
+}
+
+/* ############## MAIN ############## */
+main {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+    gap: var(--spacing-2xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+/* ########## COVER BACK ########## */
+.cover-back {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cover-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ########## MAIN ########## */
+main img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+}
+
+.category {
+    background-color: var(--background-card);
+    border-radius: calc(var(--border-radius) * 2);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+}
+
+.category:hover {
+    box-shadow: var(--shadow-hover);
+    text-decoration: none;
+    color: inherit;
+}
+
+.category img {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.category h3 {
+    margin: var(--spacing-md) var(--spacing-lg) var(--spacing-xs);
+    font-size: var(--font-size-lg);
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.category p {
+    margin: 0 var(--spacing-lg) var(--spacing-lg);
+    font-size: var(--font-size-base);
+    color: var(--text-color);
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.categories-container {
+    display: flex;
+    gap: var(--spacing-xl);
+    width: 100%;
+}
+
+.categories-btn {
+    background-color: var(--primary-color);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md) var(--spacing-md);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.categories-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+a.categories-btn {
+    text-decoration: none;
+    color: black;
+}
