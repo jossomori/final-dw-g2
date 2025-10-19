@@ -154,7 +154,7 @@
 
 .submit-rating {
     background-color: var(--primary-color);
-    color: var(--text-color);
+    color: black;
     border: none;
     padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: var(--border-radius);
