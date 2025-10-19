@@ -9,6 +9,17 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/styles.css" rel="stylesheet">
+	<link href="css/dark-mode.css" rel="stylesheet">
+	<!-- Script para evitar flash al cargar modo oscuro -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem("darkMode");
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            if (savedTheme === "true" || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add("dark-mode");
+            }
+        })();
+    </script>
 </head>
 
 <body>
@@ -65,6 +76,7 @@
 	<script type="module" src="js/auth.js"></script>
 	<script type="module" src="js/components.js"></script>
 	<script type="module" src="js/cart.js"></script>
+	<script type="module" src="js/dark-mode.js"></script>
 </body>
 
 </html>

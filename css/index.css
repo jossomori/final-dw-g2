@@ -43,7 +43,7 @@ main img {
 }
 
 .category {
-    background-color: #fff;
+    background-color: var(--background-card);
     border-radius: calc(var(--border-radius) * 2);
     box-shadow: var(--shadow);
     transition: var(--transition);
@@ -104,5 +104,5 @@ main img {
 
 a.categories-btn {
     text-decoration: none;
-    color: var(--text-color)
+    color: black;
 }
