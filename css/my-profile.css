@@ -1,0 +1,99 @@
+/* Reset mínimo y tipografía */
+* { box-sizing: border-box; }
+body {
+  font-family: 'Raleway', Arial, sans-serif;
+  background-color: #0f0f0f;
+  color: #f3f3f3;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.navbar { background-color: #0f0f0f !important; border-bottom: 1px solid #2b2b2b; }
+
+/* Contenedor principal */
+main.bg-dark { background-color: #0f0f0f; }
+
+/* Layout del perfil */
+.container.d-flex {
+  max-width: 1100px;
+}
+
+/* barra estilo */
+aside.bg-black {
+  background: #141414;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* Botones de barra */
+aside .btn {
+  border-radius: 10px;
+  text-align: left;
+  padding: 10px 12px;
+  font-weight: 600;
+}
+aside .btn.text-dark { color: #141414 !important; }
+aside .btn[style] { /* el botón activo con inline style naranja */
+  box-shadow: none;
+}
+
+/* Foto */
+section img.rounded-circle {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 6px solid #cbd5e1; /* ligero borde para destacar */
+}
+
+/* Datos */
+.card.bg-black {
+  background: linear-gradient(180deg,#141414,#121212);
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+/* Formulario */
+.form-control.bg-dark {
+  background-color: #0f0f0f !important;
+  border: 1px solid #333 !important;
+  color: #eaeaea !important;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.form-control.bg-dark:focus {
+  border-color: #f8a31b !important;
+  box-shadow: 0 0 0 4px rgba(248,163,27,0.12) !important;
+  outline: none;
+}
+
+/* Inputs sin borde visible (sólo rellenado) */
+.form-control.border-0 {
+  border: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+/* Botón guardar naranja */
+.btn-warning {
+  background-color: #f8a31b !important;
+  color: #141414 !important;
+  border-radius: 12px;
+  border: none;
+  padding: 8px 18px;
+  font-weight: 600;
+  box-shadow: 0 6px 12px rgba(248,163,27,0.15);
+}
+.btn-warning:hover {
+  background-color: #e69a15 !important;
+}
+
+/* Centrar formulario y ajustar ancho */
+#perfilForm { width: 100%; max-width: 680px; }
+
+/* Ajustes responsive */
+@media (min-width: 768px) {
+  .container.d-flex { align-items: start; }
+  aside.bg-black { margin-top: 10px; }
+}
