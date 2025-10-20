@@ -1,96 +1,112 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const navButtons = document.querySelectorAll("aside .btn");
-    const sections = document.querySelectorAll("section[data-section]");
-    const perfilForm = document.getElementById("perfilForm");
-    const inputFile = document.getElementById("fotoPerfil");
-    const imgPreview = document.getElementById("imgPreview");
+document.addEventListener('DOMContentLoaded', () => {
+    // Clave en localStorage
+    const IMG_KEY = 'profileImageData';
 
-    // ====== Navegación lateral ======
-    navButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            // Desactivar todos los botones
-            navButtons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
+    // Elementos del DOM (coinciden con el HTML actual)
+    const sidebarBtns = document.querySelectorAll('.sidebar .sidebar-btn');
+    const profilePhoto = document.getElementById('profilePhoto');
+    const changePhotoBtn = document.getElementById('changePhotoBtn');
+    const deletePhotoBtn = document.getElementById('deletePhotoBtn');
 
-            // Mostrar sección correspondiente
-            const target = btn.dataset.target;
-            sections.forEach(sec => {
-                sec.classList.toggle("hidden", sec.dataset.section !== target);
+    const editarBtn = document.getElementById('editarBtn');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    const profileForm = document.getElementById('profileForm');
+    const profileView = document.getElementById('profileView');
+    const profileInfo = document.querySelector('.profile-info');
+
+    // Cargar imagen guardada (si existe)
+    try {
+        const saved = localStorage.getItem(IMG_KEY);
+        if (saved && profilePhoto) profilePhoto.src = saved;
+    } catch (err) {
+        console.error('Error leyendo la imagen de perfil desde localStorage', err);
+    }
+
+    // Botones de la barra lateral: alternar clase 'active'
+    if (sidebarBtns && sidebarBtns.length) {
+        sidebarBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                sidebarBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
             });
         });
-    });
+    }
 
-    // ====== Preview de imagen de perfil ======
-    if (inputFile && imgPreview) {
-        inputFile.addEventListener("change", e => {
-            const file = e.target.files[0];
-            if (!file) return;
+    // Helper: crear un input file oculto y dispararlo
+    function openFilePicker(callback) {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.style.display = 'none';
+        document.body.appendChild(input);
+        input.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            callback(file);
+            document.body.removeChild(input);
+        });
+        input.click();
+    }
 
-            const reader = new FileReader();
-            reader.onload = ev => {
-                imgPreview.src = ev.target.result;
-            };
-            reader.readAsDataURL(file);
+    // Cambiar foto: abrir selector, leer archivo, guardar en localStorage y actualizar vista
+    if (changePhotoBtn) {
+        changePhotoBtn.addEventListener('click', () => {
+            openFilePicker((file) => {
+                if (!file) return;
+                if (!file.type.startsWith('image/')) return alert('Selecciona un archivo de imagen.');
+
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const dataUrl = ev.target.result;
+                    try {
+                        localStorage.setItem(IMG_KEY, dataUrl);
+                    } catch (err) {
+                        console.error('No se pudo guardar la imagen en localStorage', err);
+                        alert('No se pudo guardar la imagen en tu navegador (espacio).');
+                    }
+                    if (profilePhoto) profilePhoto.src = dataUrl;
+                };
+                reader.readAsDataURL(file);
+            });
         });
     }
 
-    // ====== Manejo del formulario de perfil ======
-    if (perfilForm) {
-        perfilForm.addEventListener("submit", e => {
+    // Eliminar foto
+    if (deletePhotoBtn) {
+        deletePhotoBtn.addEventListener('click', () => {
+            try { localStorage.removeItem(IMG_KEY); } catch (err) { console.error(err); }
+            if (profilePhoto) profilePhoto.src = 'img/myprofile.png';
+        });
+    }
+
+    // Alternar edición de perfil (mostrar/ocultar formulario)
+    if (editarBtn && cancelEditBtn && profileForm && profileView && profileInfo) {
+        editarBtn.addEventListener('click', () => {
+            profileView.classList.add('hidden');
+            profileForm.classList.remove('hidden');
+            profileInfo.classList.add('edit-mode');
+            editarBtn.classList.add('hidden');
+        });
+
+        cancelEditBtn.addEventListener('click', () => {
+            profileView.classList.remove('hidden');
+            profileForm.classList.add('hidden');
+            profileInfo.classList.remove('edit-mode');
+            editarBtn.classList.remove('hidden');
+        });
+
+        profileForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            const nombre = document.getElementById('nombre');
+            const apellido = document.getElementById('apellido');
+            const telefono = document.getElementById('telefono');
+            if (nombre) document.getElementById('nombreTexto').textContent = nombre.value;
+            if (apellido) document.getElementById('apellidoTexto').textContent = apellido.value;
+            if (telefono) document.getElementById('telefonoTexto').textContent = telefono.value;
 
-            const formData = new FormData(perfilForm);
-            const data = Object.fromEntries(formData.entries());
-
-            // Simulación de guardado
-            console.log("Perfil actualizado:", data);
-
-            // Feedback visual (puede reemplazarse con Toast/Modal)
-            const btn = perfilForm.querySelector("button[type='submit']");
-            btn.disabled = true;
-            btn.textContent = "Guardando...";
-
-            setTimeout(() => {
-                btn.disabled = false;
-                btn.textContent = "Guardar cambios";
-                alert("Perfil actualizado correctamente");
-            }, 1200);
+            profileView.classList.remove('hidden');
+            profileForm.classList.add('hidden');
+            profileInfo.classList.remove('edit-mode');
+            editarBtn.classList.remove('hidden');
         });
     }
-
-    const editarBtn = document.getElementById("editarBtn");
-    const cancelEditBtn = document.getElementById("cancelEditBtn");
-    const profileForm = document.getElementById("profileForm");
-    const profileView = document.getElementById("profileView");
-    const profileInfo = document.querySelector(".profile-info");
-
-    // Entrar en modo edición
-    editarBtn.addEventListener("click", () => {
-        profileView.classList.add("hidden");
-        profileForm.classList.remove("hidden");
-        profileInfo.classList.add("edit-mode"); // activa los botones de imagen
-        editarBtn.classList.add("hidden"); // ocultar botón principal mientras editás
-    });
-
-    // Cancelar edición
-    cancelEditBtn.addEventListener("click", () => {
-        profileView.classList.remove("hidden");
-        profileForm.classList.add("hidden");
-        profileInfo.classList.remove("edit-mode");
-        editarBtn.classList.remove("hidden");
-    });
-
-    // Guardar cambios del formulario
-    profileForm.addEventListener("submit", e => {
-        e.preventDefault();
-
-        document.getElementById("nombreTexto").textContent = document.getElementById("nombre").value;
-        document.getElementById("apellidoTexto").textContent = document.getElementById("apellido").value;
-        document.getElementById("telefonoTexto").textContent = document.getElementById("telefono").value;
-
-        profileView.classList.remove("hidden");
-        profileForm.classList.add("hidden");
-        profileInfo.classList.remove("edit-mode");
-        editarBtn.classList.remove("hidden");
-    });
 });
