@@ -2,29 +2,15 @@
 <html lang="es">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>eMercado - Todo lo que busques está aquí</title>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/components.css" rel="stylesheet">
+    <link href="css/my-profile.css" rel="stylesheet">
     <link href="css/dark-mode.css" rel="stylesheet">
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
     <script>
         (function () {
             const savedTheme = localStorage.getItem("darkMode");
@@ -37,45 +23,64 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav w-100 justify-content-between">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="categories.html">Categorías</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sell.html">Vender</a>
-                    </li>
-                    <li class="nav-item">
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     <main>
-        <div class="container">
-            <div class="alert alert-danger text-center" role="alert">
-                <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-            </div>
+        <h1 class="profile-title">Mi perfil</h1>
+
+        <div class="main-container">
+            <section class="sidebar">
+                <nav class="sidebar-menu">
+                    <ul>
+                        <li><button class="sidebar-btn active"><i class="bi bi-person-fill"></i> Mi perfil</button></li>
+                        <li><button class="sidebar-btn"><i class="bi bi-bag"></i> Vender</button></li>
+                        <li><button class="sidebar-btn"><i class="bi bi-gear"></i> Avanzado</button></li>
+                    </ul>
+                </nav>
+            </section>
+            <section class="profile-content">
+                <div class="profile-info">
+                    <div class="profile-photo-container">
+                        <img src="img/myprofile.png" alt="Foto de perfil" id="profilePhoto" class="profile-photo">
+                        <div class="photo-buttons">
+                            <button class="btn-outline" id="changePhotoBtn">Reemplazar</button>
+                            <button class="btn-outline danger" id="deletePhotoBtn">Eliminar</button>
+                        </div>
+                    </div>
+                    <div class="profile-card" id="profileView">
+                        <p><strong>Nombre:</strong> <span id="nombreTexto">Usuario123</span></p>
+                        <p><strong>Apellido:</strong> <span id="apellidoTexto">-</span></p>
+                        <p><strong>E-mail:</strong> <span id="emailTexto">Usuario123@gmail.com</span></p>
+                        <p><strong>Teléfono:</strong> <span id="telefonoTexto">095-555-555</span></p>
+                        <button id="editarBtn" class="edit-btn">Editar perfil</button>
+                    </div>
+
+
+                    <form id="profileForm" class="profile-form hidden">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" class="form-control" value="Usuario123">
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" id="apellido" class="form-control" value="-">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" class="form-control" value="Usuario123@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono</label>
+                            <input type="text" id="telefono" class="form-control" value="095-555-555">
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">Guardar</button>
+                            <button type="button" class="btn-outline" id="cancelEditBtn">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
         </div>
     </main>
-    <footer class="text-muted">
-        <div class="container">
-            <p class="float-end">
-                <a href="#">Volver arriba</a>
-            </p>
-            <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a
-                    Programar</a></p>
-        </div>
-    </footer>
+
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/init.js"></script>
     <script type="module" src="js/auth.js"></script>
