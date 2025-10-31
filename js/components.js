@@ -105,4 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    const cartButton = document.querySelector('.cart-button');
+    if (cartButton) {
+        cartButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'cart.html';
+        });
+    }
 });
