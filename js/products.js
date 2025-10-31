@@ -1,9 +1,34 @@
-// Obtener catID de la URL
 const urlParams = new URLSearchParams(window.location.search);
 const catID = urlParams.get('catID');
 const URL = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
 let productsData = [];
 let filteredProducts = [];
+
+const getCart = () => {
+    const cartData = localStorage.getItem('cart');
+    return cartData ? JSON.parse(cartData) : [];
+};
+
+const saveCart = (cart) => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.dispatchEvent(new Event('cartUpdated'));
+};
+
+const addToCart = (product) => {
+    const cart = getCart();
+    
+    const existingProductIndex = cart.findIndex(
+        item => item.nombre === product.nombre && item.imagen === product.imagen
+    );
+    
+    if (existingProductIndex !== -1) {
+        cart[existingProductIndex].cantidad += product.cantidad;
+    } else {
+        cart.push(product);
+    }
+    
+    saveCart(cart);
+};
 
 document.addEventListener("DOMContentLoaded", function() {
     loadProducts();
@@ -95,15 +120,26 @@ function displayProducts(products) {
                 </div>
             </div>
         `;
+        
+        const buyButton = item.querySelector('.buy-button');
+        buyButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            const cartProduct = {
+                nombre: prod.name,
+                costo: prod.cost,
+                moneda: prod.currency,
+                cantidad: 1,
+                imagen: prod.image
+            };
+            
+            addToCart(cartProduct);
+            window.location.href = 'cart.html';
+        });
+        
         item.addEventListener("click", () => {
             localStorage.setItem("productID", prod.id); 
             window.location = "product-info.html";       
-        });
-
-        // Esto es para que al hacer click en la tarjeta te lleve a product-info.html
-        item.addEventListener("click", function() {
-            localStorage.setItem("productID", prod.id);
-            window.location.href = "product-info.html";
         });
 
         contenedor.appendChild(item);
