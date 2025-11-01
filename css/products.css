@@ -40,6 +40,9 @@ h1 {
     position: sticky;
     top: var(--spacing-2xl);
     align-self: flex-start;
+    padding: var(--spacing-lg);
+    background-color: var(--subtle-bg-color);
+    border-radius: var(--border-radius-lg);
 }
 
 .products-container {
@@ -236,6 +239,18 @@ h1 {
 
 .buy-button:hover {
     background-color: var(--primary-dark);
+}
+
+.buy-button.added .add-to-cart-icon {
+    display: none;
+}
+
+.buy-button .check-icon {
+    display: none;
+}
+
+.buy-button.added .check-icon {
+    display: inline-block;
 }
 
 

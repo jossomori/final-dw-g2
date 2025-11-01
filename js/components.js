@@ -1,5 +1,32 @@
 import { checkAuth, setupStorageListener } from './auth.js';
 
+const getTotalCartItems = () => {
+    const cartData = localStorage.getItem('cart');
+    if (!cartData) return 0;
+    
+    try {
+        const cart = JSON.parse(cartData);
+        return cart.reduce((total, item) => total + (item.cantidad || 0), 0);
+    } catch (error) {
+        console.error('Error al leer el carrito:', error);
+        return 0;
+    }
+};
+
+const updateCartBadge = () => {
+    const badge = document.getElementById('cart-badge');
+    if (!badge) return;
+    
+    const totalItems = getTotalCartItems();
+    
+    if (totalItems > 0) {
+        badge.textContent = totalItems;
+        badge.style.display = 'inline-block';
+    } else {
+        badge.style.display = 'none';
+    }
+};
+
 function loadHeader() {
     const header = document.createElement('header');
     header.innerHTML = `
@@ -35,6 +62,7 @@ function loadHeader() {
                     <svg class="icon cart-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M10.5 18a1.5 1.5 0 1 0 0 3 1.5 1.5 0 1 0 0-3M17.5 18a1.5 1.5 0 1  0 0 3 1.5 1.5 0 1 0 0-3M8.82 15.77c.31.75 1.04 1.23 1.85 1.23h6.18c.79 0 1.51-.47 1.83-1.2l3.24-7.4c.14-.31.11-.67-.08-.95S21.34 7 21 7H7.33L5.92 3.62C5.76 3.25 5.4 3 5 3H2v2h2.33zM19.47 9l-2.62 6h-6.18l-2.5-6z"></path>
                     </svg>
+                    <span id="cart-badge" class="cart-badge" style="display: none;">0</span>
                 </button>
 
                 <div class="dropdown">
@@ -118,4 +146,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    const cartButton = document.querySelector('.cart-button');
+    if (cartButton) {
+        cartButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'cart.html';
+        });
+    }
+    
+    updateCartBadge();
+    window.addEventListener('cartUpdated', updateCartBadge);
 });

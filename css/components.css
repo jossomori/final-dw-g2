@@ -132,6 +132,27 @@ header {
     color: var(--primary-color);
 }
 
+.cart-button {
+    position: relative;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--primary-dark);
+    color: white;
+    border-radius: 50%;
+    padding: 1px 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    min-width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .menu-button {
     display: none;
 }

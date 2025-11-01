@@ -5,6 +5,32 @@ const URL = `https://japceibal.github.io/emercado-api/cats_products/${catID}.jso
 let productsData = [];
 let filteredProducts = [];
 
+const getCart = () => {
+    const cartData = localStorage.getItem('cart');
+    return cartData ? JSON.parse(cartData) : [];
+};
+
+const saveCart = (cart) => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.dispatchEvent(new Event('cartUpdated'));
+};
+
+const addToCart = (product) => {
+    const cart = getCart();
+    
+    const existingProductIndex = cart.findIndex(
+        item => item.nombre === product.nombre && item.imagen === product.imagen
+    );
+    
+    if (existingProductIndex !== -1) {
+        cart[existingProductIndex].cantidad += product.cantidad;
+    } else {
+        cart.push(product);
+    }
+    
+    saveCart(cart);
+};
+
 document.addEventListener("DOMContentLoaded", function() {
     loadProducts();
     setupEventListeners();
@@ -90,20 +116,41 @@ function displayProducts(products) {
                                         1.83-1.2L21.66 9h-2.18l-2.62 6h-6.18L5.92 3.62C5.76 
                                         3.25 5.4 3 5 3H2v2h2.33z"></path>
                             </svg>
+                            <svg class="icon check-icon" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
                         </button>
                     </div>
                 </div>
             </div>
         `;
+        
+        const buyButton = item.querySelector('.buy-button');
+        buyButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            const cartProduct = {
+                id: prod.id,
+                nombre: prod.name,
+                costo: prod.cost,
+                moneda: prod.currency,
+                cantidad: 1,
+                imagen: prod.image
+            };
+            
+            addToCart(cartProduct);
+            
+            buyButton.classList.add('added');
+            
+            setTimeout(() => {
+                buyButton.classList.remove('added');
+            }, 2000);
+        });
+        
         item.addEventListener("click", () => {
             localStorage.setItem("productID", prod.id); 
             window.location = "product-info.html";       
-        });
-
-        // Esto es para que al hacer click en la tarjeta te lleve a product-info.html
-        item.addEventListener("click", function() {
-            localStorage.setItem("productID", prod.id);
-            window.location.href = "product-info.html";
         });
 
         contenedor.appendChild(item);

@@ -95,7 +95,7 @@ main img {
     border-radius: var(--border-radius);
     padding: var(--spacing-md) var(--spacing-md);
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0s !important;
 }
 
 .categories-btn:hover {
