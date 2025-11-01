@@ -27,6 +27,7 @@ h1 {
     border-radius: calc(var(--border-radius) * 2);
 }
 
+
 .layout {
     display: flex;
     gap: var(--spacing-2xl);
@@ -113,7 +114,7 @@ h1 {
 
 .filter-button {
     background-color: var(--primary-color);
-    color: var(--text-color);
+    color: black;
     border: none;
     border-radius: var(--border-radius);
     padding: var(--spacing-xs) var(--spacing-sm);
@@ -133,7 +134,7 @@ h1 {
 
 /* ############## PRODUCT CARD ############## */
 .product-card {
-    background-color: #fff;
+    background-color: var(--background-card);
     display: flex;
     border-radius: calc(var(--border-radius) * 2);
     box-shadow: var(--shadow);
@@ -224,7 +225,7 @@ h1 {
 
 .buy-button {
     background-color: var(--primary-color);
-    color: var(--text-color);
+    color: black;
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);

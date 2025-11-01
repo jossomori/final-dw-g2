@@ -1,0 +1,257 @@
+/* Estilos base para elementos comunes */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+/* Estilos para el logo del header */
+.logo-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 1.75rem;
+    padding-bottom: var(--spacing-xxs);
+}
+
+.logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: auto;
+    max-height: 1.75rem;
+    flex-shrink: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.logo.light-mode {
+    opacity: 1;
+    visibility: visible;
+}
+
+.logo.dark-mode {
+    opacity: 0;
+    visibility: hidden;
+}
+
+html.dark-mode .logo.light-mode {
+    opacity: 0;
+    visibility: hidden;
+}
+
+html.dark-mode .logo.dark-mode {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Estilos para el icono de búsqueda en modo oscuro */
+html.dark-mode .search-icon {
+    color: black;
+    transition: var(--transition);
+}
+
+html.dark-mode .search-button:hover .search-icon {
+    color: var(--primary-color);
+}
+
+/* Estilos para las imágenes de portada */
+.cover-back {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.cover-back img {
+    width: 100%;
+    height: auto;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.cover-back img.light-mode {
+    display: block;
+    opacity: 1;
+}
+
+.cover-back img.dark-mode {
+    display: none;
+    opacity: 0;
+}
+
+html.dark-mode .cover-back img.light-mode {
+    display: none;
+    opacity: 0;
+}
+
+html.dark-mode .cover-back img.dark-mode {
+    display: block;
+    opacity: 1;
+}
+
+/* Header y footer */
+header {
+    background-color: var(--header-bg-color);
+    transition: var(--transition);
+}
+
+/* Estilos para el logo */
+.logo-container {
+    position: relative;
+    display: block;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.logo.light-mode {
+    display: block;
+    opacity: 1;
+}
+
+.logo.dark-mode {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+html.dark-mode .logo.light-mode {
+    display: none;
+    opacity: 0;
+}
+
+html.dark-mode .logo.dark-mode {
+    display: block;
+    opacity: 1;
+}
+
+footer {
+    background-color: var(--footer-bg-color);
+    transition: var(--transition);
+}
+
+/* Links y textos */
+a {
+    color: var(--link-color);
+    transition: var(--transition);
+}
+
+/* Toggle switch personalizado */
+.toggle-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 1rem;
+    border: solid 2px var(--border-color);
+    border-radius: 32px;
+}
+
+.toggle-button input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.toggle-label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 64px;
+    height: 32px;
+    background-color: var(--subtle-bg-color);
+    border-radius: 32px;
+    cursor: pointer;
+    padding: 4px;
+    transition: var(--transition);
+}
+
+.toggle-label svg {
+    width: 24px;
+    height: 24px;
+    z-index: 1;
+    fill: currentColor;
+}
+
+.toggle-label .sun-icon {
+    color: black;
+    position: absolute;
+    left: 4px;
+}
+
+.toggle-label .moon-icon {
+    color: #666;
+    position: absolute;
+    right: 4px;
+}
+
+.toggle-ball {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+input[type="checkbox"]:checked + .toggle-label {
+    background-color: var(--subtle-bg-color);
+}
+
+input[type="checkbox"]:checked + .toggle-label .toggle-ball {
+    transform: translateX(32px);
+}
+
+/* Estilos específicos para el modo oscuro */
+html.dark-mode .toggle-label .sun-icon {
+    color: #666;
+    opacity: 0.5;
+}
+
+html.dark-mode .toggle-label .moon-icon {
+    color: black;
+    opacity: 1;
+}
+
+/* Animaciones para los iconos */
+.toggle-label .sun-icon {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.toggle-label .moon-icon {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+/* Centrar el toggle en el header */
+.user-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Elementos específicos en modo oscuro */
+html.dark-mode .toggle-label {
+    background-color: var(--subtle-bg-color);
+}
+
+/* Asegurar que las cards y contenedores también cambien */
+.card,
+.container,
+.dropdown-content,
+.modal-content {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: var(--transition);
+}

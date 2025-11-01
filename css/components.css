@@ -102,6 +102,8 @@ header {
     border-radius: var(--border-radius);
 }
 
+.button svg path {fill: currentColor;}
+
 #nombreUsuario {
     font-size: var(--font-size-md);
     font-weight: 500;
@@ -116,6 +118,7 @@ header {
     justify-content: center;
     vertical-align: middle;
     height: 2rem;
+    color: var(--text-color);
 }
 
 .icon {

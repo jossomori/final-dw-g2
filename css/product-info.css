@@ -142,7 +142,7 @@ body {
 
 .buy-button {
     background-color: var(--primary-color);
-    color: var(--text-color);
+    color: black;
     font-weight: 500;
     border: none;
     border-radius: var(--border-radius);

@@ -11,6 +11,16 @@
     <link href="css/base.css" rel="stylesheet">
     <link href="css/components.css" rel="stylesheet">
     <link href="css/products.css" rel="stylesheet">
+    <link href="css/dark-mode.css" rel="stylesheet">
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem("darkMode");
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            if (savedTheme === "true" || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add("dark-mode");
+            }
+        })();
+    </script>
 </head>
 <body>    
     <main>
@@ -47,5 +57,6 @@
     <script type="module" src="js/auth.js"></script>
     <script type="module" src="js/components.js"></script>
     <script type="module" src="js/products.js"></script>
+    <script type="module" src="js/dark-mode.js"></script>
 </body>
 </html>

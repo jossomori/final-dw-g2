@@ -1,3 +1,4 @@
+// Obtener catID de la URL
 const urlParams = new URLSearchParams(window.location.search);
 const catID = urlParams.get('catID');
 const URL = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
