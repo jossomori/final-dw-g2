@@ -115,6 +115,10 @@ function displayProducts(products) {
                                         1.83-1.2L21.66 9h-2.18l-2.62 6h-6.18L5.92 3.62C5.76 
                                         3.25 5.4 3 5 3H2v2h2.33z"></path>
                             </svg>
+                            <svg class="icon check-icon" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
                         </button>
                     </div>
                 </div>
@@ -126,6 +130,7 @@ function displayProducts(products) {
             e.stopPropagation();
             
             const cartProduct = {
+                id: prod.id,
                 nombre: prod.name,
                 costo: prod.cost,
                 moneda: prod.currency,
@@ -134,7 +139,12 @@ function displayProducts(products) {
             };
             
             addToCart(cartProduct);
-            window.location.href = 'cart.html';
+            
+            buyButton.classList.add('added');
+            
+            setTimeout(() => {
+                buyButton.classList.remove('added');
+            }, 2000);
         });
         
         item.addEventListener("click", () => {

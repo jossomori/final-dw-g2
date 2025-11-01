@@ -224,6 +224,7 @@ const setupBuyButton = (product) => {
     
     buyButton.addEventListener('click', () => {
         const cartProduct = {
+            id: product.id,
             nombre: product.name,
             costo: product.cost,
             moneda: product.currency,
@@ -232,7 +233,12 @@ const setupBuyButton = (product) => {
         };
         
         addToCart(cartProduct);
-        window.location.href = 'cart.html';
+        
+        buyButton.classList.add('added');
+        
+        setTimeout(() => {
+            window.location.href = 'cart.html';
+        }, 800);
     });
 };
 
