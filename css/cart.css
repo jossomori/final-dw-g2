@@ -237,6 +237,14 @@ h1 {
     margin: var(--spacing-xxs) 0;
 }
 
+.conversion-note {
+    font-size: var(--font-size-xs);
+    color: var(--text-color);
+    opacity: 0.6;
+    margin: var(--spacing-xxs) 0;
+    font-style: italic;
+}
+
 .summary-total .summary-label {
     font-size: var(--font-size-md);
     font-weight: 600;

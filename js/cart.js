@@ -27,7 +27,7 @@ const renderCartProduct = (product, index) => {
                 <div class="cart-item-info">
                     <div class="info-group">
                         <span class="info-label">Precio</span>
-                        <span class="info-value">${product.moneda} ${product.costo}</span>
+                        <span class="info-value">${product.moneda} ${product.costo.toLocaleString('es-UY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                     <div class="info-group">
                         <label for="quantity-${index}" class="info-label">Cantidad</label>
@@ -42,7 +42,7 @@ const renderCartProduct = (product, index) => {
                     </div>
                     <div class="info-group">
                         <span class="info-label">Subtotal</span>
-                        <span class="subtotal" data-index="${index}">${product.moneda} ${subtotal}</span>
+                        <span class="subtotal" data-index="${index}">${product.moneda} ${subtotal.toLocaleString('es-UY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@ const updateSubtotal = (index, newQuantity) => {
     const subtotalElement = document.querySelector(`.subtotal[data-index="${index}"]`);
 
     if (subtotalElement) {
-        subtotalElement.textContent = `${product.moneda} ${subtotal}`;
+        subtotalElement.textContent = `${product.moneda} ${subtotal.toLocaleString('es-UY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
     
     renderCartSummary();
@@ -156,18 +156,29 @@ const attachProductNameListeners = () => {
 
 const calculateTotal = () => {
     const cart = getCart();
-    let subtotal = 0;
-    let currency = 'USD';
+    let subtotalUYU = 0;
+    let subtotalUSD = 0;
     
     cart.forEach(product => {
-        subtotal += product.costo * product.cantidad;
-        currency = product.moneda;
+        const subtotal = product.costo * product.cantidad;
+        
+        if (product.moneda === 'USD') {
+            subtotalUSD += subtotal;
+        } else {
+            subtotalUYU += subtotal;
+        }
     });
     
+    // Convertir todo a UYU para el total
+    const totalUYU = subtotalUYU + (subtotalUSD * 40);
     const shippingCost = 0;
-    const total = subtotal + shippingCost;
     
-    return { subtotal, shippingCost, total, currency };
+    return { 
+        subtotalUYU, 
+        subtotalUSD, 
+        shippingCost, 
+        total: totalUYU
+    };
 };
 
 const renderCartSummary = () => {
@@ -181,18 +192,36 @@ const renderCartSummary = () => {
         return;
     }
     
-    const { subtotal, shippingCost, total, currency } = calculateTotal();
+    const { subtotalUYU, subtotalUSD, shippingCost, total } = calculateTotal();
+    
+    // Construir las líneas de subtotal
+    let subtotalHTML = '';
+    if (subtotalUYU > 0) {
+        subtotalHTML += `
+            <div class="summary-row">
+                <span class="summary-label">Subtotal UYU:</span>
+                <span class="summary-value">UYU ${subtotalUYU.toLocaleString('es-UY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+            </div>`;
+    }
+    if (subtotalUSD > 0) {
+        subtotalHTML += `
+            <div class="summary-row">
+                <span class="summary-label">Subtotal USD:</span>
+                <span class="summary-value">USD ${subtotalUSD.toLocaleString('es-UY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+            </div>`;
+    }
+    
+    // Verificar si hay productos en USD para mostrar la nota de conversión
+    const conversionNote = subtotalUSD > 0 ? '<p class="conversion-note">* Conversión: 1 USD = 40 UYU</p>' : '';
     
     summaryContainer.innerHTML = `
         <div class="cart-summary-prices">
-            <div class="summary-row">
-                <span class="summary-label">Subtotal:</span>
-                <span class="summary-value">${currency} ${subtotal.toFixed(2)}</span>
-            </div>
+            ${subtotalHTML}
+            ${conversionNote}
             <div class="summary-divider"></div>
             <div class="summary-row summary-total">
                 <span class="summary-label">Total:</span>
-                <span class="summary-value">${currency} ${total.toFixed(2)}</span>
+                <span class="summary-value">UYU ${total.toLocaleString('es-UY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
         </div>
         <button class="checkout-button">Finalizar compra</button>
