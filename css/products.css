@@ -35,7 +35,7 @@ h1 {
 }
 
 .products-filters {
-    max-width: 16rem;
+    max-width: 17rem;
     flex-shrink: 0;
     position: sticky;
     top: var(--spacing-2xl);
@@ -43,6 +43,9 @@ h1 {
     padding: var(--spacing-lg);
     background-color: var(--subtle-bg-color);
     border-radius: var(--border-radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
 }
 
 .products-container {
@@ -55,7 +58,7 @@ h1 {
 
 /* ############## FILTER SECTION ############## */
 .filter-section {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: 0;
 }
 
 .filter-section h3 {
@@ -117,6 +120,7 @@ h1 {
     color: black;
     border: none;
     border-radius: var(--border-radius);
+    margin-top: var(--spacing-sm);
     padding: var(--spacing-xs) var(--spacing-sm);
     cursor: pointer;
     font-size: var(--font-size-base);
