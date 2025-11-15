@@ -281,3 +281,220 @@ h1 {
         width: 100%;
     }
 }
+
+
+/* =========================================
+   CONTENEDOR TOTAL DEL CHECKOUT
+   ========================================= */
+#cart-summary {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--subtle-bg-color);
+    border-radius: var(--border-radius-lg);
+    padding: 0 var(--spacing-lg);
+}
+
+
+/* =========================================
+   titulos // seccion
+   ========================================= */
+#cart-summary h3 {
+    font-size: 1.3rem;
+    margin-top: 20px;
+    margin-bottom: 1px;
+}
+
+/* =========================================
+   tarjetas // seccion
+   ========================================= */
+#tipo-envio,
+#pago,
+#direccion {
+    background: hsla(0, 0%, 99%, 0.637);
+    padding: 18px;
+    font-weight: 600;
+    border-radius: 15px;
+    display: block;
+    flex-direction: row;
+    gap: 15px;
+}
+
+
+
+/* =========================================
+   inputs
+   ========================================= */
+#direccion input,
+.pago-tarjeta input,
+.pago-transferencia input {
+    padding: 5px 1em;
+    margin-bottom: 5px;
+    border-radius: 56px;
+    border: 1px solid hsl(0, 0%, 0%);
+    font-size: 0.75rem;
+    background: #fff;
+    transition: border-color 0.2s;
+    width: 80%;
+}
+
+#direccion input:focus,
+.pago-tarjeta input:focus,
+.pago-transferencia input:focus {
+    outline: none;
+    border-color: #c8911d;
+}
+
+/* =========================================
+   botones radios
+   ========================================= */
+#tipo-envio label,
+#pago label {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+#tipo-envio input[type="radio"],
+#pago input[type="radio"] {
+    accent-color: #000000;
+    width: 20px;
+    height: 20px;
+}
+
+/* =========================================
+   costos pedidos
+   ========================================= */
+#costos {
+    margin-top: 25px;
+    padding: 18px;
+    display: block;
+    margin: 0 auto;
+    font-size: 1rem;
+}
+
+#costos .linea-costo {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+}
+
+#costos .total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-top: 12px;
+    color: #c8911d;
+}
+
+/* =========================================
+   boton // finalizar compra
+   ========================================= */
+#finalizar-compra {
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    background: #dc9b34 !important;
+    border: none !important;
+    padding: 12px 0;
+    font-size: 1.0rem;
+    font-weight: 500;
+    color: hsl(0, 0%, 0%);
+    border-radius: 12px;
+    transition: 0.2s;
+}
+
+#finalizar-compra:hover {
+    background: #b67f29 !important;
+}
+
+.totaluyu {
+    color: #dc9b34;
+}
+
+.totalenvio {
+    color: hsl(0, 0%, 51%);
+}
+
+.cambioFijo {
+    color: hsl(0, 0%, 51%);
+}
+
+/* =========================================
+   dark mode settings
+   ========================================= */
+.dark-mode #cart-summary {
+    background: #1f1f1f;
+    box-shadow: none;
+}
+
+.dark-mode #tipo-envio,
+.dark-mode #direccion,
+.dark-mode #pago,
+.dark-mode #costos {
+    background: #242424;
+    border-color: #333;
+    border-radius: 15px;
+}
+
+.dark-mode #direccion input,
+.dark-mode .pago-tarjeta input,
+.dark-mode .pago-transferencia input {
+    background: #1c1c1c;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+.dark-mode #cart-summary h3,
+.dark-mode #costos,
+.dark-mode #tipo-envio label,
+.dark-mode #pago label {
+    color: #eaeaea;
+}
+
+/* =========================================
+        layout checkout + cart
+   ========================================= */
+
+main.container {
+    max-width: 1200px;
+}
+
+/* Contenedor general en grid */
+main.container {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Carrito a la izquierda */
+#cart-container {
+    grid-column: 1;
+}
+
+/* Checkout a la derecha */
+#cart-summary {
+    grid-column: 2;
+    position: sticky;
+    top: 20px;
+    /* se mantiene visible al hacer scroll */
+}
+
+/* =========================================
+   RESPONSIVE (MÓVIL Y TABLET)
+   ========================================= */
+@media (max-width: 992px) {
+
+    main.container {
+        grid-template-columns: 1fr;
+    }
+
+    #cart-summary {
+        grid-column: 1;
+        position: static;
+        margin-top: 20px;
+    }
+}
