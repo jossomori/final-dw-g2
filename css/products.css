@@ -51,7 +51,7 @@ main {
 }
 
 h1 {
-    /* margin: var(--spacing-xl) auto; */
+    margin: var(--spacing-md) auto;
     font-size: var(--font-size-xl);
     font-weight: 500;
     color: var(--text-color);
@@ -312,7 +312,7 @@ h1 {
     .products-filters {
         display: flex;
         gap: var(--spacing-2xl);
-        max-width: 40rem;
+        max-width: 25rem;
         width: 100%;
         margin: 0 auto;
         justify-content: space-between;
@@ -326,10 +326,12 @@ h1 {
 
     .products-container {
         gap: var(--spacing-xl);
+        align-items: center;
     }
 
     .product-card {
         flex-direction: column;
+        max-width: 35rem;
     }
 
     .product-img-container {
@@ -351,22 +353,37 @@ h1 {
 }
 
 @media (max-width: 768px) {
-    h1 {
-        margin: 0 auto;
-        text-align: center;
+    main {
+        padding: var(--spacing-md);
     }
 
-    
+    h1 {
+        margin: 0 auto var(--spacing-md) auto;
+        text-align: center;
+        font-size: var(--font-size-xl);
+    }
+
     .products-filters {
         flex-direction: column;
-        gap: 0;
+        gap: var(--spacing-lg);
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .filter-section h3 {
+        font-size: var(--font-size-base);
     }
 }
 
 @media (max-width: 450px) {
     h1 {
-        margin: 0 auto;
         text-align: center;
+    }
+
+    .products-filters {
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
+        max-width: 90%;
     }
 
     .buy-button {
