@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const IMG_KEY = 'profileImageData';
-    const PROFILE_DATA_KEY = 'profileData';
+    const usuarioLogueado = localStorage.getItem('usuarioLogueado');
+    if (!usuarioLogueado) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const IMG_KEY = `profileImageData_${usuarioLogueado}`;
+    const PROFILE_DATA_KEY = `profileData_${usuarioLogueado}`;
     const DEFAULT_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cbd5e1'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
 
     // Elementos del DOM
@@ -53,17 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateFormInputs(data);
             } else {
                 // Si no hay datos guardados, usar el nombre del usuario logueado
-                const usuarioLogueado = localStorage.getItem('usuarioLogueado');
-                if (usuarioLogueado) {
-                    const defaultData = {
-                        nombre: usuarioLogueado,
-                        apellido: '',
-                        email: '',
-                        telefono: ''
-                    };
-                    updateProfileDisplay(defaultData);
-                    updateFormInputs(defaultData);
-                }
+                const defaultData = {
+                    nombre: usuarioLogueado,
+                    apellido: '',
+                    email: '',
+                    telefono: ''
+                };
+                updateProfileDisplay(defaultData);
+                updateFormInputs(defaultData);
             }
         } catch (err) {
             console.error('Error leyendo datos de perfil', err);
@@ -186,6 +189,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Guardar y actualizar
             saveProfileData(profileData);
             updateProfileDisplay(profileData);
+
+            // Actualizar el nombre de usuario en localStorage y en el header
+            localStorage.setItem('usuarioLogueado', nombre);
+            const headerUsername = document.getElementById('nombreUsuario');
+            if (headerUsername) {
+                headerUsername.textContent = nombre;
+            }
 
             // Volver a vista de información
             profileView.classList.remove('hidden');
