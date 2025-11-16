@@ -3,6 +3,18 @@
     --form-bg-color: #fff;
 }
 
+html.dark-mode body {
+    --bg-color: #efa639;
+    --form-bg-color: #fff;
+    --text-color: #000;
+    --border-color: rgba(0, 0, 0, 0.2);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --link-color: #0d6efd;
+    --primary-color: #efa639;
+    --primary-dark: #d18d1a;
+    --focus-outline: #efa63933;
+}
+
 /* ########## BODY ########## */
 body {
     background-color: var(--bg-color);
@@ -133,7 +145,7 @@ header {
 .password-icon {
     width: 1.25rem;
     height: 1.25rem;
-    transition: fill 0.3s ease;
+    transition: fill 0s;
 }
 
 .toggle-password:hover .password-icon path {
@@ -152,6 +164,7 @@ header {
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
+    transition: var(--transition-instant);
 }
 
 .login-btn:hover,
@@ -176,6 +189,7 @@ header {
 .login-link {
     text-decoration: underline;
     color: var(--text-color);
+    transition: var(--transition-instant);
 }
 
 .login-link:hover {
@@ -199,6 +213,7 @@ footer p {
 footer a {
     text-decoration: underline;
     color: var(--text-color);
+    transition: var(--transition-instant);
 }
 
 footer a:hover {
