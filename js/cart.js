@@ -31,14 +31,26 @@ const renderCartProduct = (product, index) => {
                     </div>
                     <div class="info-group">
                         <label for="quantity-${index}" class="info-label">Cantidad</label>
-                        <input 
-                            type="number" 
-                            id="quantity-${index}" 
-                            class="quantity-input" 
-                            value="${product.cantidad}" 
-                            min="1" 
-                            max="${MAX_QUANTITY}" 
-                            data-index="${index}">
+                        <div class="quantity-wrapper">
+                            <button class="quantity-btn quantity-decrease" data-index="${index}" aria-label="Disminuir cantidad">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M5 11h14v2H5z"/>
+                                </svg>
+                            </button>
+                            <input 
+                                type="number" 
+                                id="quantity-${index}" 
+                                class="quantity-input" 
+                                value="${product.cantidad}" 
+                                min="1" 
+                                max="${MAX_QUANTITY}" 
+                                data-index="${index}">
+                            <button class="quantity-btn quantity-increase" data-index="${index}" aria-label="Aumentar cantidad">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M11 5h2v14h-2V5zm-6 6h14v2H5z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <div class="info-group">
                         <span class="info-label">Subtotal</span>
@@ -122,6 +134,35 @@ const attachQuantityListeners = () => {
             }
 
             updateSubtotal(index, newQuantity);
+        });
+    });
+    
+    const increaseButtons = document.querySelectorAll('.quantity-increase');
+    const decreaseButtons = document.querySelectorAll('.quantity-decrease');
+    
+    increaseButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const index = parseInt(e.currentTarget.dataset.index);
+            const input = document.getElementById(`quantity-${index}`);
+            let newQuantity = parseInt(input.value) + 1;
+            
+            if (newQuantity <= MAX_QUANTITY) {
+                input.value = newQuantity;
+                updateSubtotal(index, newQuantity);
+            }
+        });
+    });
+    
+    decreaseButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const index = parseInt(e.currentTarget.dataset.index);
+            const input = document.getElementById(`quantity-${index}`);
+            let newQuantity = parseInt(input.value) - 1;
+            
+            if (newQuantity >= 1) {
+                input.value = newQuantity;
+                updateSubtotal(index, newQuantity);
+            }
         });
     });
 };
