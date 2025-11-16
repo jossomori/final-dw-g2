@@ -1,3 +1,5 @@
+import { fetchWithLoader } from './loader.js';
+
 // Obtener catID de la URL
 const urlParams = new URLSearchParams(window.location.search);
 const catID = urlParams.get('catID');
@@ -37,11 +39,17 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function loadProducts() {
-    fetch(URL)
+    fetchWithLoader(URL)
         .then(response => response.json())
         .then(data => {
             document.title = data.catName;
             document.getElementById("category-title").textContent = data.catName;
+            
+            // Actualizar breadcrumb con el nombre de la categoría
+            const breadcrumbCategory = document.getElementById("breadcrumb-category");
+            if (breadcrumbCategory) {
+                breadcrumbCategory.textContent = data.catName;
+            }
             
             productsData = data.products;
             filteredProducts = [...productsData];
@@ -50,7 +58,9 @@ function loadProducts() {
             sortProductsByDefault();
             displayProducts(filteredProducts);
         })
-        .catch(error => console.error("Error al cargar los productos:", error));
+        .catch(error => {
+            console.error("Error al cargar los productos:", error);
+        });
 }
 
 function setupEventListeners() {
