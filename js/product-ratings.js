@@ -86,7 +86,7 @@ const renderComments = (comments) => {
 
     if (!comments || comments.length === 0) {
         commentsContainer.innerHTML = `
-            <h3 class="section-title">Comentarios</h3>
+            <h3 class="comments-title">Comentarios</h3>
             <p class="no-comments-text">No hay comentarios para este producto.</p>
         `;
         return;
@@ -108,7 +108,7 @@ const renderComments = (comments) => {
     `).join('');
 
     commentsContainer.innerHTML = `
-        <h3 class="section-title">Comentarios</h3>
+        <h3 class="comments-title">Comentarios</h3>
         <div class="comments-list">
             ${commentsHTML}
         </div>

@@ -115,7 +115,7 @@ const updateProductInfo = async (product) => {
         await updateCategoryInfo(product.category, elements.categoryLink);
     }
 
-    document.title = `${product.name} - eMercado`;
+    document.title = `eMercado - ${product.name}`;
 };
 
 

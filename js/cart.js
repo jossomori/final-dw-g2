@@ -207,9 +207,11 @@ const renderCartSummary = () => {
 
     if (cart.length === 0) {
         container.innerHTML = "";
+        container.style.display = "none";
         return;
     }
 
+    container.style.display = "flex";
     container.innerHTML = `
         <h3>Tipo de envío</h3>
         <div id="tipo-envio">
@@ -310,6 +312,10 @@ const renderCartSummary = () => {
         if (![...camposPago].every(i => i.value.trim() !== ""))
             return alert("Complete todos los datos del método de pago.");
 
+        // Limpiar el carrito
+        localStorage.removeItem('cart');
+        window.dispatchEvent(new Event('cartUpdated'));
+        
         const modal = new bootstrap.Modal(document.getElementById("compraExitosaModal"));
         modal.show();
     });

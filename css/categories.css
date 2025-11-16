@@ -18,7 +18,7 @@ main {
 }
 
 h1 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
     margin: var(--spacing-md) 0;
 }
 

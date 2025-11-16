@@ -17,7 +17,9 @@
     margin: 0;
 }
 
-.ratings-title {
+.ratings-title,
+.comments-title,
+.similar-title {
     font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--text-color);
@@ -299,7 +301,8 @@
 
     .ratings-title,
     .rate-title,
-    .section-title {
+    .comments-title,
+    .similar-title {
         font-size: var(--font-size-base);
     }
 
@@ -341,7 +344,8 @@
 
     .ratings-title,
     .rate-title,
-    .section-title {
+    .comments-title,
+    .similar-title {
         font-size: var(--font-size-lg);
         overflow-wrap: break-word;
     }
