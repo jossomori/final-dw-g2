@@ -1,3 +1,5 @@
+import { getJSONData, PRODUCT_INFO_COMMENTS_URL, EXT_TYPE } from './init.js';
+
 const RATINGS_SECTION_ID = 'ratings-section';
 const COMMENTS_CONTAINER_ID = 'comments-container';
 
