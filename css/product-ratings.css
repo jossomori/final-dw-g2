@@ -132,6 +132,8 @@
     padding-bottom: var(--spacing-xl);
     border: var(--border-width) solid var(--border-color);
     border-radius: var(--border-radius);
+    background-color: var(--input-bg-color);
+    color: var(--input-text-color);
     font-family: var(--font-family);
     font-size: var(--font-size-base);
     resize: vertical;
@@ -162,6 +164,7 @@
     font-size: var(--font-size-md);
     cursor: pointer;
     align-self: flex-end;
+    transition: var(--transition-instant);
 }
 
 .submit-rating:hover {
