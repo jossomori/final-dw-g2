@@ -7,6 +7,37 @@ body {
     min-height: 100vh;
 }
 
+.product-breadcrumb {
+    background-color: transparent;
+    padding: 0;
+}
+
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+}
+
+.breadcrumb-item {
+    color: var(--secondary-text);
+    font-size: var(--font-size-base);
+}
+
+.breadcrumb-item a {
+    text-decoration: underline;
+    color: var(--secondary-text);
+    font-size: var(--font-size-base);
+    font-weight: 300;
+    transition: var(--transition-instant);
+}
+
+.breadcrumb-item a:hover {
+    color: var(--link-color);
+}
+
+.breadcrumb-item.active {
+    color: var(--text-color);
+}
+
 /* ############## MAIN ############## */
 main {
     max-width: 80rem;
@@ -20,7 +51,7 @@ main {
 }
 
 h1 {
-    margin: var(--spacing-xl) auto;
+    /* margin: var(--spacing-xl) auto; */
     font-size: var(--font-size-xl);
     font-weight: 500;
     color: var(--text-color);
