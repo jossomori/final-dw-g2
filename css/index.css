@@ -106,3 +106,103 @@ a.categories-btn {
     text-decoration: none;
     color: black;
 }
+
+@media (max-width: 768px) {
+    .cover-back img {
+        width: 85%;
+    }
+
+    .light-mode-desktop,
+    .dark-mode-desktop {
+        display: none !important;
+    }
+
+    .light-mode-mobile {
+        display: block !important;
+        opacity: 1 !important;
+    }
+
+    .dark-mode-mobile {
+        display: none !important;
+        opacity: 0 !important;
+    }
+
+    html.dark-mode .light-mode-mobile {
+        display: none !important;
+        opacity: 0 !important;
+    }
+
+    html.dark-mode .dark-mode-mobile {
+        display: block !important;
+        opacity: 1 !important;
+    }
+
+    .categories-container {
+        flex-direction: column;
+    }
+
+    .category {
+        width: 80vw;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: var(--spacing-lg);
+        gap: var(--spacing-xl);
+    }
+
+    .category h3 {
+        font-size: var(--font-size-md);
+        margin: var(--spacing-sm) var(--spacing-md) var(--spacing-xxs);
+    }
+
+    .category p {
+        font-size: var(--font-size-sm);
+        margin: 0 var(--spacing-md) var(--spacing-md);
+    }
+
+    .categories-btn {
+        font-size: var(--font-size-base);
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .category {
+        width: 85vw;
+    }
+
+    .cover-back img {
+        width: 90%;
+    }
+}
+
+@media (max-width: 320px) {
+    main {
+        padding: var(--spacing-md);
+        gap: var(--spacing-lg);
+    }
+
+    .category h3 {
+        font-size: var(--font-size-base);
+        margin: var(--spacing-sm) var(--spacing-md) var(--spacing-xxs);
+    }
+
+    .category p {
+        font-size: 0.8125rem;
+        margin: 0 var(--spacing-md) var(--spacing-md);
+        line-height: 1.5;
+    }
+
+    .categories-btn {
+        font-size: var(--font-size-base);
+        padding: var(--spacing-sm) var(--spacing-lg);
+    }
+
+    .category {
+        width: 90vw;
+    }
+
+    .cover-back img {
+        width: 95%;
+    }
+}
