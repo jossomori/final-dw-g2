@@ -42,7 +42,6 @@ function calculateRatingStats(ratings) {
 
 function createRatingBar(rating, count, total) {
     const percentage = total > 0 ? (count / total) * 100 : 0;
-    const userText = count === 1 ? 'valoración' : 'valoraciones';
 
     return `
         <div class="rating-bar-row">
@@ -53,7 +52,7 @@ function createRatingBar(rating, count, total) {
                      style="width: ${percentage}%">
                 </div>
             </div>
-            <span class="rating-count">${count} ${userText}</span>
+            <span class="rating-count">${count}</span>
         </div>
     `;
 }
