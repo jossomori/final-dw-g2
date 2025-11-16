@@ -49,6 +49,7 @@ main {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
+    transition: var(--transition-instant);
 }
 
 .sidebar-btn:hover {
@@ -171,6 +172,7 @@ main {
     font-size: var(--font-size-base);
     align-self: flex-end;
     margin-top: var(--spacing-md);
+    transition: var(--transition-instant);
 }
 
 .edit-btn:hover {
@@ -185,6 +187,7 @@ main {
     padding: var(--spacing-sm) var(--spacing-md);
     font-weight: 500;
     cursor: pointer;
+    transition: var(--transition-instant);
 }
 
 .btn-outline:hover {
