@@ -32,7 +32,8 @@ header {
     border-radius: var(--border-radius);
     outline: none;
     padding: 0.75rem 3rem 0.75rem 1rem;
-    /* padding-right extra para el icono */
+    background-color: var(--input-bg-color);
+    color: var(--input-text-color);
     transition: all 0.3s ease-in-out;
 }
 
@@ -88,6 +89,7 @@ header {
     font-size: var(--font-size-base);
     font-family: var(--font-family);
     border-radius: var(--border-radius);
+    transition: var(--transition-instant);
 }
 
 .dropdown-content a:hover {
@@ -119,6 +121,7 @@ header {
     vertical-align: middle;
     height: 2rem;
     color: var(--text-color);
+    transition: var(--transition-instant);
 }
 
 .icon {
@@ -184,6 +187,7 @@ footer p {
 footer a {
     color: var(--text-color);
     text-decoration: underline;
+    transition: var(--transition-instant);
 }
 
 
