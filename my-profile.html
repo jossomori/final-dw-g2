@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Perfil</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>eMercado - Mi perfil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">    
     <link href="css/base.css" rel="stylesheet">
     <link href="css/components.css" rel="stylesheet">
     <link href="css/my-profile.css" rel="stylesheet">
@@ -24,62 +28,108 @@
     <main>
         <h1 class="profile-title">Mi perfil</h1>
 
-        <div class="main-container">
-            <section class="sidebar">
-                <nav class="sidebar-menu">
-                    <ul>
-                        <li><button class="sidebar-btn active"><i class="bi bi-person-fill"></i> Mi perfil</button></li>
-                        <li><button class="sidebar-btn"><i class="bi bi-bag"></i> Vender</button></li>
-                        <li><button class="sidebar-btn"><i class="bi bi-gear"></i> Avanzado</button></li>
-                    </ul>
-                </nav>
-            </section>
-            <section class="profile-content">
-                <div class="profile-info">
-                    <div class="profile-photo-container">
-                        <img src="img/myprofile.png" alt="Foto de perfil" id="profilePhoto" class="profile-photo">
-                        <div class="photo-buttons">
-                            <button class="btn-outline" id="changePhotoBtn">Reemplazar</button>
-                            <button class="btn-outline danger" id="deletePhotoBtn">Eliminar</button>
-                        </div>
+        <div class="profile-container">
+            <!-- Sección de foto de perfil -->
+            <div class="profile-header">
+                <div class="profile-photo-wrapper">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cbd5e1'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="Foto de perfil" id="profilePhoto" class="profile-photo">
+                    <div class="photo-overlay">
+                        <button class="photo-action-btn" id="changePhotoBtn" title="Cambiar foto">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M20 4h-3.17L15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h4.05l1.83-2h4.24l1.83 2H20v12zM12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/>
+                            </svg>
+                        </button>
+                        <button class="photo-action-btn delete-btn" id="deletePhotoBtn" title="Eliminar foto">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                            </svg>
+                        </button>
                     </div>
-                    <div class="profile-card" id="profileView">
-                        <p><strong>Nombre:</strong> <span id="nombreTexto">Usuario123</span></p>
-                        <p><strong>Apellido:</strong> <span id="apellidoTexto">-</span></p>
-                        <p><strong>E-mail:</strong> <span id="emailTexto">Usuario123@gmail.com</span></p>
-                        <p><strong>Teléfono:</strong> <span id="telefonoTexto">095-555-555</span></p>
-                        <button id="editarBtn" class="edit-btn">Editar perfil</button>
-                    </div>
-
-
-                    <form id="profileForm" class="profile-form hidden">
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" id="nombre" class="form-control" value="Usuario123">
-                        </div>
-                        <div class="form-group">
-                            <label for="apellido">Apellido</label>
-                            <input type="text" id="apellido" class="form-control" value="-">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" class="form-control" value="Usuario123@gmail.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono">Teléfono</label>
-                            <input type="text" id="telefono" class="form-control" value="095-555-555">
-                        </div>
-                        <div class="form-buttons">
-                            <button type="submit" class="btn-primary">Guardar</button>
-                            <button type="button" class="btn-outline" id="cancelEditBtn">Cancelar</button>
-                        </div>
-                    </form>
                 </div>
-            </section>
+                <h2 class="profile-name" id="displayName">Usuario123</h2>
+                <p class="profile-email" id="displayEmail">usuario123@gmail.com</p>
+            </div>
+
+            <!-- Vista de información -->
+            <div class="profile-content" id="profileView">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                            <h3>Información personal</h3>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Nombre</span>
+                            <span class="info-value" id="nombreTexto">Usuario123</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Apellido</span>
+                            <span class="info-value" id="apellidoTexto">-</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                            <h3>Contacto</h3>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">E-mail</span>
+                            <span class="info-value" id="emailTexto">usuario123@gmail.com</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Teléfono</span>
+                            <span class="info-value" id="telefonoTexto">095-555-555</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="editarBtn" class="profile-btn-primary edit-profile-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                    </svg>
+                    Editar perfil
+                </button>
+            </div>
+
+            <!-- Formulario de edición -->
+            <form id="profileForm" class="profile-form hidden">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" class="profile-input" value="Usuario123" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" class="profile-input" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" class="profile-input" value="usuario123@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" class="profile-input" value="">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="profile-btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Guardar cambios
+                    </button>
+                    <button type="button" class="profile-btn-secondary" id="cancelEditBtn">Cancelar</button>
+                </div>
+            </form>
         </div>
     </main>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/init.js"></script>
     <script type="module" src="js/auth.js"></script>
     <script type="module" src="js/components.js"></script>

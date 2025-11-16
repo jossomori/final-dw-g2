@@ -66,13 +66,19 @@ function setupEventListeners() {
         if (e.key === "Enter") applyFilters();
     });
 
-    // Filtrar en tiempo real por texto
-    const searchInput = document.querySelector(".search-input");
-    if (searchInput) {
+    // Filtrar en tiempo real por texto - para TODOS los inputs de búsqueda (desktop y mobile)
+    const searchInputs = document.querySelectorAll(".search-input");
+    searchInputs.forEach(searchInput => {
         searchInput.addEventListener("input", function() {
+            // Sincronizar ambos inputs de búsqueda
+            searchInputs.forEach(input => {
+                if (input !== searchInput) {
+                    input.value = searchInput.value;
+                }
+            });
             applyFilters();
         });
-    }
+    });
 }
 
 function displayProducts(products) {
@@ -197,7 +203,14 @@ function applyFilters() {
     // Si maxPrice es NaN, se le asigna el número máximo.
     maxPrice = maxPrice || Number.MAX_SAFE_INTEGER;
 
-    const searchText = document.querySelector(".search-input").value.toLowerCase();
+    // Obtener el texto de búsqueda del primer input visible (puede ser desktop o mobile)
+    const searchInputs = document.querySelectorAll(".search-input");
+    let searchText = "";
+    searchInputs.forEach(input => {
+        if (input.value) {
+            searchText = input.value.toLowerCase();
+        }
+    });
 
     filteredProducts = productsData.filter(product => {
         const matchesPrice = product.cost >= minPrice && product.cost <= maxPrice;
