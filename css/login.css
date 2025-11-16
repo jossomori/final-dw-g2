@@ -3,6 +3,19 @@
     --form-bg-color: #fff;
 }
 
+/* Forzar colores del modo claro en login, ignorar dark mode */
+html.dark-mode body,
+body {
+    --bg-color: #efa639;
+    --text-color: #000;
+    --border-color: #dee2e6;
+    --primary-color: #efa639;
+    --primary-dark: #d18d1a;
+    --link-color: #0056b3;
+    --focus-outline: rgba(239, 166, 57, 0.25);
+    --header-bg-color: white;
+}
+
 /* ########## BODY ########## */
 body {
     background-color: var(--bg-color);
