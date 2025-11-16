@@ -7,19 +7,24 @@ body {
 }
 
 main {
-    max-width: 80rem;
+    max-width: 75rem;
     margin: 0 auto;
     padding: var(--spacing-xl);
-    gap: var(--spacing-xl);
+    flex: 1;
+}
+
+main:not(.container) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1;
+    gap: var(--spacing-xl);
 }
 
 h1 {
     font-size: var(--font-size-xl);
-    margin: var(--spacing-md) 0 0 0;
+    margin: var(--spacing-md) 0 var(--spacing-lg) 0;
+    grid-column: 1 / -1;
+    text-align: center;
 }
 
 #cart-container {
@@ -171,7 +176,7 @@ h1 {
 .remove-item {
     position: absolute;
     top: var(--spacing-md);
-    right: var(--spacing-md);
+    right: var(--spacing-xxs);
     background-color: transparent;
     border: none;
     color: var(--text-color);
@@ -280,6 +285,14 @@ h1 {
     margin: var(--spacing-xxs) 0;
 }
 
+.conversion-note {
+    font-size: var(--font-size-xs);
+    color: var(--text-color);
+    opacity: 0.6;
+    margin: var(--spacing-xxs) 0;
+    font-style: italic;
+}
+
 .summary-total .summary-label {
     font-size: var(--font-size-md);
     font-weight: 600;
@@ -316,4 +329,163 @@ h1 {
     .checkout-button {
         width: 100%;
     }
+}
+
+
+/* =========================================
+   CONTENEDOR TOTAL DEL CHECKOUT
+   ========================================= */
+#cart-summary {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--subtle-bg-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+}
+
+
+/* =========================================
+   titulos // seccion
+   ========================================= */
+#cart-summary h3 {
+    font-size: var(--font-size-lg);
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* =========================================
+   inputs
+   ========================================= */
+/* =========================================
+   inputs
+   ========================================= */
+#direccion {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+#direccion input,
+.pago-tarjeta input,
+.pago-transferencia input {
+    width: 100%;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--input-bg-color);
+    color: var(--input-text-color);
+    font-size: var(--font-size-base);
+    transition: var(--transition);
+}
+
+#direccion input:focus,
+.pago-tarjeta input:focus,
+.pago-transferencia input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--focus-outline);
+}
+
+/* =========================================
+   botones radios
+   ========================================= */
+#tipo-envio,
+#pago {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+#tipo-envio label,
+#pago label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-base);
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: 400;
+}
+
+#tipo-envio input[type="radio"],
+#pago input[type="radio"] {
+    accent-color: var(--primary-color);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* =========================================
+   costos pedidos
+   ========================================= */
+#costos {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md) 0;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-base);
+    color: var(--text-color);
+}
+
+#costos div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#costos strong {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+#costos p {
+    font-size: var(--font-size-sm);
+    color: var(--secondary-text-color);
+    margin: var(--spacing-xxs) 0;
+}
+
+/* =========================================
+   boton // finalizar compra
+   ========================================= */
+#finalizar-compra {
+    width: 100%;
+    margin-top: var(--spacing-lg);
+    background-color: var(--primary-color);
+    border: none;
+    padding: var(--spacing-md);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: #000;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition-instant);
+}
+
+#finalizar-compra:hover {
+    background-color: var(--primary-color-dark);
+}
+
+main.container {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: var(--spacing-xl);
+    align-items: start;
+}
+
+/* Carrito a la izquierda */
+main.container #cart-container {
+    grid-column: 1;
+}
+
+/* Checkout a la derecha */
+main.container #cart-summary {
+    grid-column: 2;
+    position: sticky;
+    top: var(--spacing-xl);
+    margin-top: 0;
 }

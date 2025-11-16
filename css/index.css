@@ -99,10 +99,8 @@ main img {
 }
 
 .categories-btn:hover {
-    background-color: var(--primary-dark);
-}
-
-a.categories-btn {
+    background-color: var(--primary-color-dark);
+    transition: var(--transition-instant);
     text-decoration: none;
     color: black;
 }
