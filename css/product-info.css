@@ -40,6 +40,7 @@ body {
     color: var(--secondary-text);
     font-size: var(--font-size-base);
     font-weight: 300;
+    transition: var(--transition-instant);
 }
 
 .breadcrumb-item a:hover {
@@ -152,6 +153,7 @@ body {
     align-items: center;
     gap: var(--spacing-xs);
     cursor: pointer;
+    transition: var(--transition-instant);
 }
 
 .buy-button:hover {
@@ -197,7 +199,7 @@ body {
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow);
     overflow: hidden;
-    transition: var(--transition);
+    transition: box-shadow 0.3s ease-in-out;
     cursor: pointer;
     display: flex;
     flex-direction: column;
