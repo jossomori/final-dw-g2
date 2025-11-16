@@ -91,17 +91,17 @@ main img {
     background-color: var(--primary-color);
     font-size: var(--font-size-lg);
     font-weight: 500;
+    color: black;
     border: none;
     border-radius: var(--border-radius);
     padding: var(--spacing-md) var(--spacing-md);
     cursor: pointer;
     transition: var(--transition-instant);
+    text-decoration: none;
 }
 
 .categories-btn:hover {
-    background-color: var(--primary-color-dark);
-    transition: var(--transition-instant);
-    text-decoration: none;
+    background-color: var(--primary-dark);
     color: black;
 }
 

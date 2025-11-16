@@ -212,11 +212,13 @@ const renderCartSummary = () => {
 
     container.innerHTML = `
         <h3>Tipo de envío</h3>
-        <label><input type="radio" name="envio" value="0.15"> Premium 2 a 5 días (15%)</label><br>
-        <label><input type="radio" name="envio" value="0.07"> Express 5 a 8 días (7%)</label><br>
-        <label><input type="radio" name="envio" value="0.05"> Standard 12 a 15 días (5%)</label>
+        <div id="tipo-envio">
+            <label><input type="radio" name="envio" value="0.15"> Premium 2 a 5 días (15%)</label>
+            <label><input type="radio" name="envio" value="0.07"> Express 5 a 8 días (7%)</label>
+            <label><input type="radio" name="envio" value="0.05"> Standard 12 a 15 días (5%)</label>
+        </div>
 
-        <h3 class="mt-3">Dirección de envío</h3>
+        <h3>Dirección de envío</h3>
         <div id="direccion">
             <input type="text" placeholder="Departamento">
             <input type="text" placeholder="Localidad">
@@ -225,23 +227,23 @@ const renderCartSummary = () => {
             <input type="text" placeholder="Esquina">
         </div>
 
-        <h3 class="mt-3">Forma de pago</h3>
+        <h3>Forma de pago</h3>
         <div id="pago">
-            <label><input type="radio" name="pago" value="tarjeta"> Debito / Credito </label>
+            <label><input type="radio" name="pago" value="tarjeta"> Débito / Crédito</label>
             <label><input type="radio" name="pago" value="transferencia"> Transferencia bancaria</label>
 
-            <div class="pago-tarjeta mt-2" style="display:none;">
+            <div class="pago-tarjeta" style="display:none;">
                 <input type="text" placeholder="Número de tarjeta">
                 <input type="text" placeholder="Titular">
             </div>
 
-            <div class="pago-transferencia mt-2" style="display:none;">
+            <div class="pago-transferencia" style="display:none;">
                 <input type="text" placeholder="Número de cuenta">
             </div>
         </div>
 
-        <div id="costos" class="mt-4"></div>
-        <button id="finalizar-compra" class="btn btn-success mt-5">Finalizar compra</button>
+        <div id="costos"></div>
+        <button id="finalizar-compra">Finalizar compra</button>
     `;
 
     const costosDiv = document.getElementById("costos");
@@ -255,15 +257,17 @@ const renderCartSummary = () => {
 
         let subtotalHTML = "";
         if (subtotalUYU > 0)
-            subtotalHTML += `<div>Subtotal UYU: <strong>UYU$ ${subtotalUYU.toLocaleString()}</strong></div>`;
+            subtotalHTML += `<div>Subtotal UYU: <strong>${subtotalUYU.toLocaleString('es-UY')} UYU</strong></div>`;
         if (subtotalUSD > 0)
-            subtotalHTML += `<div>Subtotal USD: <strong>USD$ ${subtotalUSD.toLocaleString()}</strong></div>
-                <p>Conversión: 1 USD = 40 UYU</p>`;
+            subtotalHTML += `<div>Subtotal USD: <strong>${subtotalUSD.toLocaleString('es-UY')} USD</strong></div>`;
+        
+        if (subtotalUSD > 0)
+            subtotalHTML += `<p>Conversión: 1 USD = 40 UYU</p>`;
 
         costosDiv.innerHTML = `
             ${subtotalHTML}
-            <div>Costo de envío: <strong>UYU$ ${shippingCost.toLocaleString()}</strong></div>
-            <div>Total: <strong>UYU$ ${total.toLocaleString()}</strong></div>
+            <div>Costo de envío: <strong>${shippingCost.toLocaleString('es-UY', { minimumFractionDigits: 2 })} UYU</strong></div>
+            <div>Total: <strong>${total.toLocaleString('es-UY', { minimumFractionDigits: 2 })} UYU</strong></div>
         `;
     };
 
