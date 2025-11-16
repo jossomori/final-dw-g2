@@ -1,3 +1,5 @@
+import { getJSONData, PUBLISH_PRODUCT_URL } from './init.js';
+
 let productCost = 0;
 let productCount = 0;
 let comissionPercentage = 0.13;

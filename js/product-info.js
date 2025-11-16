@@ -1,3 +1,5 @@
+import { getJSONData, CATEGORIES_URL, PRODUCTS_URL, PRODUCT_INFO_URL, EXT_TYPE } from './init.js';
+
 const ELEMENT_IDS = {
     MAIN_IMAGE: 'main-product-image',
     THUMBNAILS: 'product-thumbnails',
@@ -113,7 +115,7 @@ const updateProductInfo = async (product) => {
         await updateCategoryInfo(product.category, elements.categoryLink);
     }
 
-    document.title = `${product.name} - eMercado`;
+    document.title = `eMercado - ${product.name}`;
 };
 
 

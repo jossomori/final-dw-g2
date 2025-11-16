@@ -1,3 +1,5 @@
+import { getJSONData, PRODUCT_INFO_COMMENTS_URL, EXT_TYPE } from './init.js';
+
 const RATINGS_SECTION_ID = 'ratings-section';
 const COMMENTS_CONTAINER_ID = 'comments-container';
 
@@ -42,7 +44,6 @@ function calculateRatingStats(ratings) {
 
 function createRatingBar(rating, count, total) {
     const percentage = total > 0 ? (count / total) * 100 : 0;
-    const userText = count === 1 ? 'valoración' : 'valoraciones';
 
     return `
         <div class="rating-bar-row">
@@ -53,7 +54,7 @@ function createRatingBar(rating, count, total) {
                      style="width: ${percentage}%">
                 </div>
             </div>
-            <span class="rating-count">${count} ${userText}</span>
+            <span class="rating-count">${count}</span>
         </div>
     `;
 }
@@ -85,7 +86,7 @@ const renderComments = (comments) => {
 
     if (!comments || comments.length === 0) {
         commentsContainer.innerHTML = `
-            <h3 class="section-title">Comentarios</h3>
+            <h3 class="comments-title">Comentarios</h3>
             <p class="no-comments-text">No hay comentarios para este producto.</p>
         `;
         return;
@@ -107,7 +108,7 @@ const renderComments = (comments) => {
     `).join('');
 
     commentsContainer.innerHTML = `
-        <h3 class="section-title">Comentarios</h3>
+        <h3 class="comments-title">Comentarios</h3>
         <div class="comments-list">
             ${commentsHTML}
         </div>

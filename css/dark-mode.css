@@ -45,10 +45,9 @@ html.dark-mode .logo.dark-mode {
     visibility: visible;
 }
 
-/* Estilos para el icono de búsqueda en modo oscuro */
 html.dark-mode .search-icon {
-    color: black;
-    transition: var(--transition);
+    color: var(--text-color);
+    transition: var(--transition-instant);
 }
 
 html.dark-mode .search-button:hover .search-icon {
@@ -69,24 +68,44 @@ html.dark-mode .search-button:hover .search-icon {
     transition: opacity 0.3s ease-in-out;
 }
 
-.cover-back img.light-mode {
+.cover-back img.light-mode-desktop {
     display: block;
     opacity: 1;
 }
 
-.cover-back img.dark-mode {
+.cover-back img.dark-mode-desktop {
     display: none;
     opacity: 0;
 }
 
-html.dark-mode .cover-back img.light-mode {
+.cover-back img.light-mode-mobile {
     display: none;
     opacity: 0;
 }
 
-html.dark-mode .cover-back img.dark-mode {
+.cover-back img.dark-mode-mobile {
+    display: none;
+    opacity: 0;
+}
+
+html.dark-mode .cover-back img.light-mode-desktop {
+    display: none;
+    opacity: 0;
+}
+
+html.dark-mode .cover-back img.dark-mode-desktop {
     display: block;
     opacity: 1;
+}
+
+html.dark-mode .cover-back img.light-mode-mobile {
+    display: none;
+    opacity: 0;
+}
+
+html.dark-mode .cover-back img.dark-mode-mobile {
+    display: none;
+    opacity: 0;
 }
 
 /* Header y footer */
@@ -166,7 +185,7 @@ a {
     justify-content: space-between;
     width: 64px;
     height: 32px;
-    background-color: var(--subtle-bg-color);
+    background-color: transparent;
     border-radius: 32px;
     cursor: pointer;
     padding: 4px;
@@ -181,7 +200,7 @@ a {
 }
 
 .toggle-label .sun-icon {
-    color: black;
+    color: #000;
     position: absolute;
     left: 4px;
 }
@@ -203,34 +222,30 @@ a {
     transition: var(--transition);
 }
 
-input[type="checkbox"]:checked + .toggle-label {
-    background-color: var(--subtle-bg-color);
-}
-
 input[type="checkbox"]:checked + .toggle-label .toggle-ball {
     transform: translateX(32px);
 }
 
 /* Estilos específicos para el modo oscuro */
 html.dark-mode .toggle-label .sun-icon {
-    color: #666;
-    opacity: 0.5;
+    color: #999;
+    opacity: 1;
 }
 
 html.dark-mode .toggle-label .moon-icon {
-    color: black;
+    color: #000;
     opacity: 1;
 }
 
 /* Animaciones para los iconos */
 .toggle-label .sun-icon {
     opacity: 1;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, color 0.3s ease;
 }
 
 .toggle-label .moon-icon {
-    opacity: 0.5;
-    transition: opacity 0.3s ease;
+    opacity: 0.6;
+    transition: opacity 0.3s ease, color 0.3s ease;
 }
 
 /* Centrar el toggle en el header */
@@ -242,8 +257,16 @@ html.dark-mode .toggle-label .moon-icon {
 }
 
 /* Elementos específicos en modo oscuro */
-html.dark-mode .toggle-label {
-    background-color: var(--subtle-bg-color);
+html.dark-mode select {
+    color-scheme: dark;
+}
+
+html.dark-mode .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23e8e8e8' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+}
+
+html.dark-mode input[type="number"] {
+    color-scheme: dark;
 }
 
 /* Asegurar que las cards y contenedores también cambien */
