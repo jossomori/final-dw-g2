@@ -3,18 +3,6 @@
     --form-bg-color: #fff;
 }
 
-html.dark-mode body {
-    --bg-color: #efa639;
-    --form-bg-color: #fff;
-    --text-color: #000;
-    --border-color: rgba(0, 0, 0, 0.2);
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --link-color: #0d6efd;
-    --primary-color: #efa639;
-    --primary-dark: #d18d1a;
-    --focus-outline: #efa63933;
-}
-
 /* ########## BODY ########## */
 body {
     background-color: var(--bg-color);
