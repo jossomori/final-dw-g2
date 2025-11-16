@@ -91,6 +91,37 @@ h1 {
     gap: var(--spacing-xs);
 }
 
+.quantity-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    position: relative;
+}
+
+.quantity-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: var(--spacing-xxs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    transition: var(--transition-instant);
+}
+
+.quantity-btn:hover {
+    color: var(--primary-color);
+}
+
+.quantity-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
 .info-label {
     font-weight: 600;
     color: var(--text-color);
@@ -116,10 +147,20 @@ h1 {
     padding: var(--spacing-xxs);
     border: var(--border-width) solid var(--border-color);
     border-radius: var(--border-radius);
+    background-color: var(--input-bg-color);
+    color: var(--input-text-color);
     font-size: var(--font-size-base);
     outline: none;
     text-align: center;
     transition: var(--transition);
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .quantity-input:focus {
@@ -133,6 +174,7 @@ h1 {
     right: var(--spacing-md);
     background-color: transparent;
     border: none;
+    color: var(--text-color);
     cursor: pointer;
     padding: var(--spacing-xs);
     display: flex;
@@ -140,6 +182,7 @@ h1 {
     justify-content: center;
     width: 40px;
     height: 40px;
+    transition: var(--transition-instant);
 }
 
 .remove-item:hover {
@@ -249,7 +292,7 @@ h1 {
 
 .checkout-button {
     background-color: var(--primary-color);
-    color: var(--text-color);
+    color: #000;
     font-weight: 500;
     border: none;
     border-radius: var(--border-radius);
@@ -257,6 +300,7 @@ h1 {
     font-size: var(--font-size-md);
     cursor: pointer;
     align-self: center;
+    transition: var(--transition-instant);
 }
 
 .checkout-button:hover {
