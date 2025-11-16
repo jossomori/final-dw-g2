@@ -46,7 +46,7 @@ main img {
     background-color: var(--background-card);
     border-radius: calc(var(--border-radius) * 2);
     box-shadow: var(--shadow);
-    transition: var(--transition);
+    transition: box-shadow 0.3s ease-in-out;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -95,7 +95,7 @@ main img {
     border-radius: var(--border-radius);
     padding: var(--spacing-md) var(--spacing-md);
     cursor: pointer;
-    transition: all 0s !important;
+    transition: var(--transition-instant);
 }
 
 .categories-btn:hover {
