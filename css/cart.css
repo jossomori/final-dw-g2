@@ -244,97 +244,7 @@ h1 {
     margin: auto 0;
 }
 
-#cart-summary {
-    width: 100%;
-    margin-top: var(--spacing-md);
-    padding: var(--spacing-sm) 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: var(--spacing-lg);
-}
-
-.cart-summary-prices {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xxs);
-    flex: 1;
-}
-
-.summary-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.summary-label {
-    font-size: var(--font-size-sm);
-    color: var(--text-color);
-}
-
-.summary-value {
-    font-size: var(--font-size-sm);
-    font-weight: 500;
-    color: var(--text-color);
-}
-
-.summary-divider {
-    width: 100%;
-    height: 1px;
-    background-color: var(--border-color);
-    margin: var(--spacing-xxs) 0;
-}
-
-.conversion-note {
-    font-size: var(--font-size-xs);
-    color: var(--text-color);
-    opacity: 0.6;
-    margin: var(--spacing-xxs) 0;
-    font-style: italic;
-}
-
-.summary-total .summary-label {
-    font-size: var(--font-size-md);
-    font-weight: 600;
-}
-
-.summary-total .summary-value {
-    font-size: var(--font-size-md);
-    font-weight: 700;
-}
-
-.checkout-button {
-    background-color: var(--primary-color);
-    color: #000;
-    font-weight: 500;
-    border: none;
-    border-radius: var(--border-radius);
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-size: var(--font-size-md);
-    cursor: pointer;
-    align-self: center;
-    transition: var(--transition-instant);
-}
-
-.checkout-button:hover {
-    background-color: var(--primary-dark);
-}
-
-@media (max-width: 768px) {
-    #cart-summary {
-        flex-direction: column;
-        gap: var(--spacing-md);
-    }
-
-    .checkout-button {
-        width: 100%;
-    }
-}
-
-
-/* =========================================
-   CONTENEDOR TOTAL DEL CHECKOUT
-   ========================================= */
+/* Checkout */
 #cart-summary {
     width: 100%;
     display: flex;
@@ -344,70 +254,33 @@ h1 {
     padding: var(--spacing-lg);
 }
 
-
-/* =========================================
-   titulos // seccion
-   ========================================= */
 #cart-summary h3 {
     font-size: var(--font-size-lg);
-    margin-top: var(--spacing-md);
-    margin-bottom: var(--spacing-sm);
-    color: var(--text-color);
     font-weight: 600;
+    color: var(--text-color);
+    margin: 0 0 var(--spacing-sm) 0;
 }
 
-/* =========================================
-   inputs
-   ========================================= */
-/* =========================================
-   inputs
-   ========================================= */
-#direccion {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
+#cart-summary h3:not(:first-of-type) {
+    margin-top: var(--spacing-lg);
 }
 
-#direccion input,
-.pago-tarjeta input,
-.pago-transferencia input {
-    width: 100%;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border: var(--border-width) solid var(--border-color);
-    border-radius: var(--border-radius);
-    background-color: var(--input-bg-color);
-    color: var(--input-text-color);
-    font-size: var(--font-size-base);
-    transition: var(--transition);
-}
-
-#direccion input:focus,
-.pago-tarjeta input:focus,
-.pago-transferencia input:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--focus-outline);
-}
-
-/* =========================================
-   botones radios
-   ========================================= */
 #tipo-envio,
 #pago {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xs);
+    gap: var(--spacing-sm);
 }
 
 #tipo-envio label,
 #pago label {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
+    gap: var(--spacing-sm);
     font-size: var(--font-size-base);
     color: var(--text-color);
     cursor: pointer;
-    font-weight: 400;
+    padding: var(--spacing-xs) 0;
 }
 
 #tipo-envio input[type="radio"],
@@ -418,16 +291,54 @@ h1 {
     cursor: pointer;
 }
 
-/* =========================================
-   costos pedidos
-   ========================================= */
+#direccion,
+.pago-tarjeta,
+.pago-transferencia {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.pago-tarjeta,
+.pago-transferencia {
+    margin-top: var(--spacing-sm);
+}
+
+#direccion input,
+.pago-tarjeta input,
+.pago-transferencia input {
+    width: 100%;
+    margin: 0 0 var(--spacing-sm) 0;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--input-bg-color);
+    color: var(--input-text-color);
+    font-size: var(--font-size-base);
+    transition: var(--transition);
+}
+
+#direccion input:last-child,
+.pago-tarjeta input:last-child,
+.pago-transferencia input:last-child {
+    margin-bottom: 0;
+}
+
+#direccion input:focus,
+.pago-tarjeta input:focus,
+.pago-transferencia input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--focus-outline);
+}
+
 #costos {
     margin-top: var(--spacing-lg);
-    padding: var(--spacing-md) 0;
+    padding-top: var(--spacing-md);
     border-top: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xs);
+    gap: var(--spacing-sm);
     font-size: var(--font-size-base);
     color: var(--text-color);
 }
@@ -435,57 +346,61 @@ h1 {
 #costos div {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 #costos strong {
     font-weight: 600;
-    color: var(--text-color);
 }
 
 #costos p {
     font-size: var(--font-size-sm);
-    color: var(--secondary-text-color);
-    margin: var(--spacing-xxs) 0;
+    color: var(--secondary-text);
+    margin: 0;
+    font-style: italic;
 }
 
-/* =========================================
-   boton // finalizar compra
-   ========================================= */
 #finalizar-compra {
     width: 100%;
     margin-top: var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-md);
     background-color: var(--primary-color);
-    border: none;
-    padding: var(--spacing-md);
-    font-size: var(--font-size-lg);
-    font-weight: 500;
     color: #000;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: var(--transition-instant);
 }
 
 #finalizar-compra:hover {
-    background-color: var(--primary-color-dark);
+    background-color: var(--primary-dark);
 }
 
 main.container {
     display: grid;
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: 1fr 320px;
     gap: var(--spacing-xl);
     align-items: start;
 }
 
-/* Carrito a la izquierda */
 main.container #cart-container {
     grid-column: 1;
 }
 
-/* Checkout a la derecha */
 main.container #cart-summary {
     grid-column: 2;
     position: sticky;
     top: var(--spacing-xl);
-    margin-top: 0;
+}
+
+@media (max-width: 992px) {
+    main.container {
+        grid-template-columns: 1fr;
+    }
+
+    main.container #cart-summary {
+        grid-column: 1;
+        position: static;
+    }
 }
