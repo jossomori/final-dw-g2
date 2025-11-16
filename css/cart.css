@@ -380,8 +380,9 @@ h1 {
 main.container {
     display: grid;
     grid-template-columns: 1fr 320px;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-lg);
     align-items: start;
+    max-width: 70rem;
 }
 
 main.container #cart-container {
@@ -390,8 +391,6 @@ main.container #cart-container {
 
 main.container #cart-summary {
     grid-column: 2;
-    position: sticky;
-    top: var(--spacing-xl);
 }
 
 @media (max-width: 992px) {

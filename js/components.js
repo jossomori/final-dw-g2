@@ -35,7 +35,7 @@ const updateCartBadge = () => {
 
 function loadHeader() {
     const currentPage = window.location.pathname.split('/').pop();
-    const hasSearch = currentPage === 'products.html' || currentPage === 'categories.html';
+    const hasSearch = currentPage === 'products.html';
     
     const header = document.createElement('header');
     if (hasSearch) {
@@ -50,6 +50,7 @@ function loadHeader() {
                     <img class="logo dark-mode" src="img/extra/header-logo-dark.png" alt="eMercado Logo - Modo Oscuro">
                 </a>
 
+                ${hasSearch ? `
                 <div class="search-section desktop-search">
                     <input class="search-input" type="text" placeholder="Buscar productos...">
                     <button class="button search-button">
@@ -58,6 +59,7 @@ function loadHeader() {
                         </svg>
                     </button>
                 </div>
+                ` : ''}
 
                 <div class="user-actions desktop-actions">
                     <div class="toggle-button">
