@@ -16,6 +16,7 @@
   <link href="css/components.css" rel="stylesheet">
   <link href="css/cart.css" rel="stylesheet">
   <link href="css/dark-mode.css" rel="stylesheet">
+  <link href="css/loader.css" rel="stylesheet">
 
   <!-- Script para evitar flash al cargar modo oscuro -->
   <script>
@@ -30,41 +31,34 @@
 </head>
 
 <body>
-  <main class="container my-4">
-    <h1 class="mb-4">Mi carrito</h1>
-
+  <main class="container">
+    <h1>Mi carrito</h1>
 
     <div id="cart-container"></div>
 
-    <div id="cart-summary" class="mt-5"></div>
-  </main>
+    <div id="cart-summary"></div>
 
-  <!-- modal de compra exitosa -->
-  <div class="modal fade" id="compraExitosaModal" tabindex="-1" aria-labelledby="compraExitosaLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header bg-success text-white">
-          <h5 class="modal-title" id="compraExitosaLabel">¡Compra realizada con éxito!</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <p>Tu compra fue procesada correctamente !!</p>
-          <p>Pronto recibirás un correo con los detalles del pedido =D </p>
-        </div>
-        <div class="modal-footer">
-          <button id="btnVolverInicio" type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+    <div class="modal fade" id="compraExitosaModal" tabindex="-1" aria-labelledby="compraExitosaLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title" id="compraExitosaLabel">¡Compra realizada con éxito!</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+              aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p>Tu compra fue procesada correctamente !!</p>
+            <p>Pronto recibirás un correo con los detalles del pedido =D </p>
+          </div>
+          <div class="modal-footer">
+            <button id="btnVolverInicio" type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- scripts -->
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/init.js"></script>
-  <script type="module" src="js/auth.js"></script>
-  <script type="module" src="js/components.js"></script>
-  <script type="module" src="js/cart.js"></script>
-  <script type="module" src="js/dark-mode.js"></script>
+  </main>
 
   <!-- script para redirigir al cerrar el modal -->
   <script>
@@ -76,6 +70,13 @@
       window.location.href = "index.html";
     });
   </script>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/init.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/components.js"></script>
+  <script type="module" src="js/cart.js"></script>
+  <script type="module" src="js/dark-mode.js"></script>
 </body>
 
 </html>
