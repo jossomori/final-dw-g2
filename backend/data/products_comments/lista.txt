@@ -1,0 +1,24 @@
+ El volumen de la unidad C no tiene etiqueta.
+ El n£mero de serie del volumen es: 8AFE-8165
+
+ Directorio de C:\Users\sontr\Documents\GitHub\proyectoFinalGrupo2JaP\backend\data\products_comments
+
+28/11/2025  17:35    <DIR>          .
+28/11/2025  16:53    <DIR>          ..
+26/11/2025  17:38                 2 40281.json
+26/11/2025  17:38               866 50741.json
+26/11/2025  17:38               854 50742.json
+26/11/2025  17:38               837 50743.json
+26/11/2025  17:38               892 50744.json
+26/11/2025  17:38               902 50921.json
+26/11/2025  17:38               639 50922.json
+26/11/2025  17:38               640 50923.json
+26/11/2025  17:38               214 50924.json
+26/11/2025  17:38                 2 50925.json
+26/11/2025  17:38               224 60801.json
+26/11/2025  17:38               439 60802.json
+26/11/2025  17:38               206 60803.json
+26/11/2025  17:38                 2 60804.json
+28/11/2025  17:35                 0 lista.txt
+              15 archivos          6.719 bytes
+               2 dirs  61.555.793.920 bytes libres

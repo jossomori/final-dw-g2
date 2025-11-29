@@ -1,0 +1,316 @@
+:root {
+    --bg-color: #efa639;
+    --form-bg-color: #fff;
+}
+
+/* Forzar colores del modo claro en login, ignorar dark mode */
+html.dark-mode body,
+body {
+    --bg-color: #efa639;
+    --text-color: #000;
+    --border-color: #dee2e6;
+    --primary-color: #efa639;
+    --primary-dark: #d18d1a;
+    --link-color: #0056b3;
+    --focus-outline: rgba(239, 166, 57, 0.25);
+    --header-bg-color: white;
+}
+
+/* ########## BODY ########## */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* ########## LAYOUT CONTAINER ########## */
+.layout-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ########## FORM COLUMN ########## */
+.form-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+}
+
+/* ########## MAIN CONTENT ########## */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    padding: var(--spacing-lg);
+}
+
+/* ########## HEADER ########## */
+header {
+    width: 100%;
+}
+
+.header-container {
+    padding: var(--spacing-md);
+    background-color: var(--header-bg-color);
+}
+
+.header-logo {
+    display: block;
+    margin: 0 auto;
+    min-width: 200px;
+    max-width: 50%;
+}
+
+/* ########## IMAGE ########## */
+.image-section {
+    display: none;
+}
+
+/* ########## FORM ########## */
+.form-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-lg);
+    background-color: var(--form-bg-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow);
+    width: 100%;
+}
+
+.login-title {
+    text-align: center;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-sm);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-label {
+    font-size: var(--font-size-sm);
+    font-weight: 400;
+    margin-bottom: var(--spacing-xxs);
+}
+
+.form-group input {
+    width: 100%;
+    padding: var(--spacing-xs);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--focus-outline);
+}
+
+/* ########## SHOW PASSWORD BUTTON ########## */
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: var(--spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    outline: none;
+}
+
+.password-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: fill 0s;
+}
+
+.toggle-password:hover .password-icon path {
+    fill: var(--primary-color);
+}
+
+.hiding-icon {
+    display: none;
+}
+
+/* ########## BUTTON ########## */
+.login-btn {
+    background-color: var(--primary-color);
+    padding: var(--spacing-sm);
+    font-weight: 500;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition-instant);
+}
+
+.login-btn:hover,
+.login-btn:focus {
+    background-color: var(--primary-dark);
+}
+
+/* ########## LINKS ########## */
+.separator {
+    display: none;
+}
+
+.login-links {
+    font-size: var(--font-size-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: var(--spacing-md);
+    gap: var(--spacing-xs);
+}
+
+.login-link {
+    text-decoration: underline;
+    color: var(--text-color);
+    transition: var(--transition-instant);
+}
+
+.login-link:hover {
+    color: var(--link-color);
+}
+
+/* ########## FOOTER ########## */
+footer {
+    background: none !important;
+    font-size: var(--font-size-sm);
+    text-align: center;
+    width: 100%;
+    padding: var(--spacing-md);
+    padding-top: 0;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a {
+    text-decoration: underline;
+    color: var(--text-color);
+    transition: var(--transition-instant);
+}
+
+footer a:hover {
+    color: var(--link-color);
+}
+
+/* ########## TABLET ########## */
+@media (min-width: 600px) {
+    .header-container {
+        padding: var(--spacing-lg);
+    }
+
+    .login-container {
+        padding: var(--spacing-xl);
+        gap: var(--spacing-md);
+    }
+
+    .login-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .form-label {
+        font-size: var(--font-size-base);
+    }
+
+    .form-group input {
+        padding: var(--spacing-sm);
+    }
+
+    .toggle-password {
+        right: var(--spacing-md);
+    }
+
+    .password-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    
+    .login-btn {
+        font-size: var(--font-size-lg);
+        padding: var(--spacing-md);
+    }
+    
+    .login-links {
+        margin-top: var(--spacing-xl);
+        font-size: var(--font-size-base);
+        flex-direction: row;
+        justify-content: center;
+        gap: var(--spacing-sm);
+    }
+    
+    .separator {
+        display: inline;
+    }
+
+    footer {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+}
+
+/* ########## DESKTOP ########## */
+@media (min-width: 1024px) {
+    header {
+        display: none;
+    }
+
+    .layout-container {
+        flex-direction: row;
+        max-height: 100vh;
+    }
+    
+    .form-column {
+        width: 50%;
+        padding: var(--spacing-xl);
+        justify-content: center;
+    }
+
+    .main-content {
+        max-width: none;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .image-section {
+        background-color: #fff;
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .image-section img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 100%;
+        object-fit: contain;
+    }
+}

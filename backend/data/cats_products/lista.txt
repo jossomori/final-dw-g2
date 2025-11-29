@@ -1,0 +1,21 @@
+ El volumen de la unidad C no tiene etiqueta.
+ El n£mero de serie del volumen es: 8AFE-8165
+
+ Directorio de C:\Users\sontr\Documents\GitHub\proyectoFinalGrupo2JaP\backend\data\cats_products
+
+28/11/2025  16:37    <DIR>          .
+28/11/2025  12:43    <DIR>          ..
+26/11/2025  17:38             1.696 101.json
+26/11/2025  17:38             1.450 102.json
+26/11/2025  17:38             1.459 103.json
+26/11/2025  17:38                75 104.json
+26/11/2025  17:38               416 105.json
+26/11/2025  17:38                73 106.json
+26/11/2025  17:38                81 107.json
+26/11/2025  17:38                70 108.json
+26/11/2025  17:38                72 109.json
+28/11/2025  16:37                 0 lista.txt
+28/11/2025  16:36                 0 listado_carpetas.txt
+28/11/2025  16:36                 0 listado_completo_carpetas.txt
+              12 archivos          5.392 bytes
+               2 dirs  61.596.155.904 bytes libres

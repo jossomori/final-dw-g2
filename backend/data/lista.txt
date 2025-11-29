@@ -1,0 +1,19 @@
+ El volumen de la unidad C no tiene etiqueta.
+ El n£mero de serie del volumen es: 8AFE-8165
+
+ Directorio de C:\Users\sontr\Documents\GitHub\proyectoFinalGrupo2JaP\backend\data
+
+28/11/2025  16:53    <DIR>          .
+28/11/2025  16:27    <DIR>          ..
+06/08/2025  18:13           325.834 bootstrap.bundle.min.js.map
+26/11/2025  17:38    <DIR>          cart
+26/11/2025  17:38    <DIR>          cats
+28/11/2025  16:37    <DIR>          cats_products
+28/11/2025  16:53                 0 lista.txt
+26/11/2025  17:38    <DIR>          products
+26/11/2025  17:38    <DIR>          products_comments
+26/11/2025  17:38                86 README.md
+26/11/2025  17:38    <DIR>          sell
+26/11/2025  17:38    <DIR>          user_cart
+               3 archivos        325.920 bytes
+               9 dirs  61.623.767.040 bytes libres
