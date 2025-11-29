@@ -21,6 +21,8 @@
     --focus-outline: #efa63933;
     --background-card: white; 
     --dark-text: black;
+    --input-bg-color: #fff;
+    --input-text-color: #000;
     
     /* Tipografía */
     --font-family: 'Inter', sans-serif;
@@ -46,23 +48,26 @@
     
     /* Efectos */
     --transition: all 0.3s ease-in-out;
+    --transition-instant: all 0s;
     --shadow: 0 0 1rem var(--shadow-color);
     --shadow-hover: 0 0 1rem var(--hover-shadow-color);
 }
 
 html.dark-mode {
-    --bg-color: black;
-    --subtle-bg-color: #0e0e0e;
-    --header-bg-color: #0e0e0e;
-    --footer-bg-color: #0e0e0e;
+    --bg-color: #1a1a1a;
+    --subtle-bg-color: #2a2a2a;
+    --header-bg-color: #1f1f1f;
+    --footer-bg-color: #1f1f1f;
     --primary-color: #efa639;
     --primary-dark: #d18d1a;
-    --text-color: #e0e0e0;
-    --secondary-text: #a0a0a0;
-    --link-color: #4ea1ff;
-    --border-color: rgba(255, 255, 255, 0.2);
+    --text-color: #e8e8e8;
+    --secondary-text: #b0b0b0;
+    --link-color: #5eb3ff;
+    --border-color: rgba(255, 255, 255, 0.15);
     --shadow-color: rgba(0, 0, 0, 0.7);
     --hover-shadow-color: rgba(0, 0, 0, 0.9);
     --focus-outline: #efa63933;
-    --background-card: #161616d8;
+    --background-card: #252525;
+    --input-bg-color: #2a2a2a;
+    --input-text-color: #e8e8e8;
 }

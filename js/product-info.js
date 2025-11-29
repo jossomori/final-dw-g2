@@ -1,3 +1,5 @@
+import { getJSONData, CATEGORIES_URL, PRODUCTS_URL, PRODUCT_INFO_URL, EXT_TYPE } from './init.js';
+
 const ELEMENT_IDS = {
     MAIN_IMAGE: 'main-product-image',
     THUMBNAILS: 'product-thumbnails',
@@ -113,7 +115,7 @@ const updateProductInfo = async (product) => {
         await updateCategoryInfo(product.category, elements.categoryLink);
     }
 
-    document.title = `${product.name} - eMercado`;
+    document.title = `eMercado - ${product.name}`;
 };
 
 
@@ -175,15 +177,13 @@ const initProductPage = async () => {
         if (result.status === 'ok' && result.data) {
             const product = result.data;
             
-            // Configurar galería
             setupProductGallery(product);
-            
-            // Actualizar información
             await updateProductInfo(product);
             
-            // Renderizar productos similares
             const catID = localStorage.getItem('catID');
             await renderSimilarProducts(product.relatedProducts, catID);
+            
+            setupBuyButton(product);
 
         } else {
             showError(ERROR_MESSAGES.LOAD_ERROR);
@@ -194,5 +194,54 @@ const initProductPage = async () => {
     }
 };
 
+const getCart = () => {
+    const cartData = localStorage.getItem('cart');
+    return cartData ? JSON.parse(cartData) : [];
+};
+
+const saveCart = (cart) => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.dispatchEvent(new Event('cartUpdated'));
+};
+
+const addToCart = (product) => {
+    const cart = getCart();
+    
+    const existingProductIndex = cart.findIndex(
+        item => item.nombre === product.nombre && item.imagen === product.imagen
+    );
+    
+    if (existingProductIndex !== -1) {
+        cart[existingProductIndex].cantidad += product.cantidad;
+    } else {
+        cart.push(product);
+    }
+    
+    saveCart(cart);
+};
+
+const setupBuyButton = (product) => {
+    const buyButton = document.querySelector('.buy-button');
+    if (!buyButton) return;
+    
+    buyButton.addEventListener('click', () => {
+        const cartProduct = {
+            id: product.id,
+            nombre: product.name,
+            costo: product.cost,
+            moneda: product.currency,
+            cantidad: 1,
+            imagen: product.images[0]
+        };
+        
+        addToCart(cartProduct);
+        
+        buyButton.classList.add('added');
+        
+        setTimeout(() => {
+            window.location.href = 'cart.html';
+        }, 800);
+    });
+};
 
 document.addEventListener('DOMContentLoaded', initProductPage);

@@ -1,3 +1,5 @@
+import { fetchWithLoader } from './loader.js';
+
 // Obtener catID de la URL
 const urlParams = new URLSearchParams(window.location.search);
 const catID = urlParams.get('catID');
@@ -5,17 +7,49 @@ const URL = `https://japceibal.github.io/emercado-api/cats_products/${catID}.jso
 let productsData = [];
 let filteredProducts = [];
 
+const getCart = () => {
+    const cartData = localStorage.getItem('cart');
+    return cartData ? JSON.parse(cartData) : [];
+};
+
+const saveCart = (cart) => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.dispatchEvent(new Event('cartUpdated'));
+};
+
+const addToCart = (product) => {
+    const cart = getCart();
+    
+    const existingProductIndex = cart.findIndex(
+        item => item.nombre === product.nombre && item.imagen === product.imagen
+    );
+    
+    if (existingProductIndex !== -1) {
+        cart[existingProductIndex].cantidad += product.cantidad;
+    } else {
+        cart.push(product);
+    }
+    
+    saveCart(cart);
+};
+
 document.addEventListener("DOMContentLoaded", function() {
     loadProducts();
     setupEventListeners();
 });
 
 function loadProducts() {
-    fetch(URL)
+    fetchWithLoader(URL)
         .then(response => response.json())
         .then(data => {
-            document.title = data.catName;
+            document.title = `eMercado - ${data.catName}`;
             document.getElementById("category-title").textContent = data.catName;
+            
+            // Actualizar breadcrumb con el nombre de la categoría
+            const breadcrumbCategory = document.getElementById("breadcrumb-category");
+            if (breadcrumbCategory) {
+                breadcrumbCategory.textContent = data.catName;
+            }
             
             productsData = data.products;
             filteredProducts = [...productsData];
@@ -24,7 +58,9 @@ function loadProducts() {
             sortProductsByDefault();
             displayProducts(filteredProducts);
         })
-        .catch(error => console.error("Error al cargar los productos:", error));
+        .catch(error => {
+            console.error("Error al cargar los productos:", error);
+        });
 }
 
 function setupEventListeners() {
@@ -40,13 +76,19 @@ function setupEventListeners() {
         if (e.key === "Enter") applyFilters();
     });
 
-    // Filtrar en tiempo real por texto
-    const searchInput = document.querySelector(".search-input");
-    if (searchInput) {
+    // Filtrar en tiempo real por texto - para TODOS los inputs de búsqueda (desktop y mobile)
+    const searchInputs = document.querySelectorAll(".search-input");
+    searchInputs.forEach(searchInput => {
         searchInput.addEventListener("input", function() {
+            // Sincronizar ambos inputs de búsqueda
+            searchInputs.forEach(input => {
+                if (input !== searchInput) {
+                    input.value = searchInput.value;
+                }
+            });
             applyFilters();
         });
-    }
+    });
 }
 
 function displayProducts(products) {
@@ -90,20 +132,41 @@ function displayProducts(products) {
                                         1.83-1.2L21.66 9h-2.18l-2.62 6h-6.18L5.92 3.62C5.76 
                                         3.25 5.4 3 5 3H2v2h2.33z"></path>
                             </svg>
+                            <svg class="icon check-icon" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
                         </button>
                     </div>
                 </div>
             </div>
         `;
+        
+        const buyButton = item.querySelector('.buy-button');
+        buyButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            const cartProduct = {
+                id: prod.id,
+                nombre: prod.name,
+                costo: prod.cost,
+                moneda: prod.currency,
+                cantidad: 1,
+                imagen: prod.image
+            };
+            
+            addToCart(cartProduct);
+            
+            buyButton.classList.add('added');
+            
+            setTimeout(() => {
+                buyButton.classList.remove('added');
+            }, 2000);
+        });
+        
         item.addEventListener("click", () => {
             localStorage.setItem("productID", prod.id); 
             window.location = "product-info.html";       
-        });
-
-        // Esto es para que al hacer click en la tarjeta te lleve a product-info.html
-        item.addEventListener("click", function() {
-            localStorage.setItem("productID", prod.id);
-            window.location.href = "product-info.html";
         });
 
         contenedor.appendChild(item);
@@ -150,7 +213,14 @@ function applyFilters() {
     // Si maxPrice es NaN, se le asigna el número máximo.
     maxPrice = maxPrice || Number.MAX_SAFE_INTEGER;
 
-    const searchText = document.querySelector(".search-input").value.toLowerCase();
+    // Obtener el texto de búsqueda del primer input visible (puede ser desktop o mobile)
+    const searchInputs = document.querySelectorAll(".search-input");
+    let searchText = "";
+    searchInputs.forEach(input => {
+        if (input.value) {
+            searchText = input.value.toLowerCase();
+        }
+    });
 
     filteredProducts = productsData.filter(product => {
         const matchesPrice = product.cost >= minPrice && product.cost <= maxPrice;
