@@ -133,7 +133,7 @@ function saveCommentsToStorage(productId, comments) {
 
 function addNewComment(productId, commentData) {
     const newComment = {
-        user: commentData.user || localStorage.getItem('usuarioLogueado') || 'Anónimo',
+        user: commentData.user || localStorage.getItem('authUser') || 'Anónimo',
         description: commentData.description,
         score: commentData.score,
         dateTime: new Date().toLocaleDateString('es-ES') + ' ' + new Date().toLocaleTimeString('es-ES')
