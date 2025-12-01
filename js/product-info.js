@@ -85,7 +85,7 @@ const updateCategoryInfo = async (categoryName, categoryLink) => {
             const category = categories.find(cat => cat.name === categoryName);
             if (category) {
                 categoryLink.textContent = categoryName;
-                categoryLink.href = `products.html?catID=${category.id}`;
+                categoryLink.href = `/products?catID=${category.id}`;
                 localStorage.setItem('catID', category.id);
             }
         }
@@ -144,8 +144,8 @@ const renderSimilarProducts = async (relatedProducts, catID) => {
     }
     
     const similarProductsHTML = detailedRelatedProducts.map(product => `
-        <div class="similar-card"
-             onclick="localStorage.setItem('productID', ${product.id}); window.location='product-info.html';"
+           <div class="similar-card"
+               onclick="localStorage.setItem('productID', ${product.id}); window.location='/product-info';"
              role="button"
              tabindex="0">
             <img src="${product.image}" class="similar-img" alt="${product.name}">
@@ -238,8 +238,8 @@ const setupBuyButton = (product) => {
         
         buyButton.classList.add('added');
         
-        setTimeout(() => {
-            window.location.href = 'cart.html';
+                setTimeout(() => {
+            window.location.href = '/cart';
         }, 800);
     });
 };
