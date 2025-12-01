@@ -176,7 +176,7 @@ const attachProductNameListeners = () => {
         name.style.cursor = 'pointer';
         name.addEventListener('click', () => {
             localStorage.setItem('productID', id);
-            window.location.href = 'product-info.html';
+            window.location.href = '/product-info';
         });
     });
 };
@@ -291,7 +291,7 @@ const renderCartSummary = () => {
 
     updateCostos();
 
-    document.getElementById("finalizar-compra").addEventListener("click", () => {
+    document.getElementById("finalizar-compra").addEventListener("click", async () => {
         const direccion = document.querySelectorAll("#direccion input");
         const pago = document.querySelector("input[name='pago']:checked");
         const envio = document.querySelector("input[name='envio']:checked");
@@ -312,12 +312,44 @@ const renderCartSummary = () => {
         if (![...camposPago].every(i => i.value.trim() !== ""))
             return alert("Complete todos los datos del método de pago.");
 
-        // Limpiar el carrito
-        localStorage.removeItem('cart');
-        window.dispatchEvent(new Event('cartUpdated'));
-        
-        const modal = new bootstrap.Modal(document.getElementById("compraExitosaModal"));
-        modal.show();
+        const direccionObj = Array.from(direccion).map(i => i.value).join(', ');
+        const envioVal = envio ? envio.value : null;
+
+        const items = getCart().map(p => ({ product_id: p.id, quantity: p.cantidad }));
+
+        const body = {
+            items,
+            payment_method: metodo,
+            shipping_type: envioVal,
+            address: direccionObj
+        };
+
+        try {
+            const token = localStorage.getItem('authToken');
+            const res = await fetch('/cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify(body)
+            });
+
+            if (!res.ok) {
+                const err = await res.json().catch(() => null);
+                return alert((err && err.message) || 'Error al guardar el carrito');
+            }
+
+            // Limpiar el carrito local y notificar
+            localStorage.removeItem('cart');
+            window.dispatchEvent(new Event('cartUpdated'));
+
+            const modal = new bootstrap.Modal(document.getElementById("compraExitosaModal"));
+            modal.show();
+        } catch (err) {
+            console.error('Error al enviar carrito:', err);
+            alert('No se pudo completar la compra. Intente nuevamente.');
+        }
     });
 };
 
