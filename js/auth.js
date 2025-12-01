@@ -1,26 +1,26 @@
 function checkAuth() {
-    const usuario = localStorage.getItem("usuarioLogueado");
-    const currentPage = window.location.pathname.split('/').pop();
-    
-    // Si no hay usuario logueado y no estamos en la página de login, redirigir a login
-    if (!usuario && currentPage !== 'login.html') {
-        window.location.href = "login.html";
+    const token = localStorage.getItem('authToken');
+    const usuario = localStorage.getItem('authUser');
+    const raw = window.location.pathname.split('/').pop();
+    const currentPage = raw ? raw.split('.').shift() : '';
+
+    if ((!token || !usuario) && currentPage !== 'login') {
+        window.location.href = '/login';
         return null;
     }
-    
-    // Si hay usuario logueado y estamos en login, redirigir a index
-    if (usuario && currentPage === 'login.html') {
-        window.location.href = "index.html";
+
+    if (token && usuario && currentPage === 'login') {
+        window.location.href = '/';
         return usuario;
     }
-    
+
     return usuario;
 }
 
 // Función para escuchar cambios en el localStorage
 function setupStorageListener() {
     window.addEventListener('storage', (e) => {
-        if (e.key === 'usuarioLogueado') {
+        if (e.key === 'authToken' || e.key === 'authUser') {
             checkAuth();
         }
     });
