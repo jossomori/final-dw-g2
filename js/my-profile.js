@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const usuarioLogueado = localStorage.getItem('usuarioLogueado');
-    if (!usuarioLogueado) {
-        window.location.href = 'login.html';
+    const usuarioLogueado = localStorage.getItem('authUser');
+    const token = localStorage.getItem('authToken');
+    if (!token || !usuarioLogueado) {
+        window.location.href = '/login';
         return;
     }
 
@@ -191,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateProfileDisplay(profileData);
 
             // Actualizar el nombre de usuario en localStorage y en el header
-            localStorage.setItem('usuarioLogueado', nombre);
+            localStorage.setItem('authUser', nombre);
             const headerUsername = document.getElementById('nombreUsuario');
             if (headerUsername) {
                 headerUsername.textContent = nombre;

@@ -1,9 +1,9 @@
 import { fetchWithLoader } from './loader.js';
+import { PRODUCTS_URL } from './init.js';
 
-// Obtener catID de la URL
 const urlParams = new URLSearchParams(window.location.search);
 const catID = urlParams.get('catID');
-const URL = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
+const URL = `${PRODUCTS_URL}${catID}.json`;
 let productsData = [];
 let filteredProducts = [];
 
@@ -166,7 +166,7 @@ function displayProducts(products) {
         
         item.addEventListener("click", () => {
             localStorage.setItem("productID", prod.id); 
-            window.location = "product-info.html";       
+            window.location = "/product-info";       
         });
 
         contenedor.appendChild(item);

@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const db = require('../config/database');
 const router = express.Router();
 
 const SECRET_KEY = process.env.JWT_SECRET;
@@ -10,7 +11,22 @@ const MOCK_USERS = [
 ];
 
 const findUserByCredentials = async (username, password) => {
-    return MOCK_USERS.find(u => u.username === username && u.password === password);
+    try {
+        const result = await db.query(
+            'SELECT user_id as id, first_name as username, email, password FROM users WHERE email = $1 AND password = $2',
+            [username, password]
+        );
+        if (result.rows.length > 0) {
+            return result.rows[0];
+        }
+        
+        const mockUser = MOCK_USERS.find(u => u.username === username && u.password === password);
+        return mockUser;
+    } catch (error) {
+        console.error('Database query error:', error.message);
+        const mockUser = MOCK_USERS.find(u => u.username === username && u.password === password);
+        return mockUser;
+    }
 };
 
 router.post('/', async (req, res) => {

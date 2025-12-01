@@ -17,8 +17,6 @@
   <link href="css/cart.css" rel="stylesheet">
   <link href="css/dark-mode.css" rel="stylesheet">
   <link href="css/loader.css" rel="stylesheet">
-
-  <!-- Script para evitar flash al cargar modo oscuro -->
   <script>
     (function () {
       const savedTheme = localStorage.getItem("darkMode");
@@ -60,14 +58,13 @@
 
   </main>
 
-  <!-- script para redirigir al cerrar el modal -->
   <script>
     const modalEl = document.getElementById("compraExitosaModal");
     modalEl.addEventListener("hidden.bs.modal", () => {
-      window.location.href = "index.html"; // redirige al inicio
+      window.location.href = "/";
     });
     document.getElementById("btnVolverInicio").addEventListener("click", () => {
-      window.location.href = "index.html";
+      window.location.href = "/";
     });
   </script>
 

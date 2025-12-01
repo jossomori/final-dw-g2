@@ -22,6 +22,13 @@ export function hideLoader() {
 export async function fetchWithLoader(url, options = {}) {
     showLoader();
     try {
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            options.headers = options.headers || {};
+            if (!options.headers['Authorization'] && !options.headers['authorization']) {
+                options.headers['Authorization'] = 'Bearer ' + token;
+            }
+        }
         const response = await fetch(url, options);
         return response;
     } catch (error) {
